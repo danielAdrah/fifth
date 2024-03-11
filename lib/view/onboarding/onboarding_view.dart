@@ -55,7 +55,7 @@ class _OnboardingState extends State<Onboarding> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 22,
-                        color: TColor.white),
+                        color: TColor.white.withOpacity(0.6)),
                   ),
                   const SizedBox(
                     height: 16,
@@ -66,7 +66,7 @@ class _OnboardingState extends State<Onboarding> {
                       pages[index].body!,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: TColor.white,
+                          color: TColor.white.withOpacity(0.6),
                           fontWeight: FontWeight.normal,
                           fontStyle: FontStyle.italic),
                     ),
@@ -82,6 +82,9 @@ class _OnboardingState extends State<Onboarding> {
                     width: 240,
                     height: 40,
                     child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                              Colors.white.withOpacity(0.6))),
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -104,14 +107,15 @@ class _OnboardingState extends State<Onboarding> {
                         child: Text(
                           'Skip',
                           style: TextStyle(
-                              color: TColor.white, fontWeight: FontWeight.w500),
+                              color: TColor.white.withOpacity(0.6),
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                       SmoothPageIndicator(
                         controller: _controller,
                         count: 3,
-                        effect: const ExpandingDotsEffect(
-                            activeDotColor: Colors.white),
+                        effect: ExpandingDotsEffect(
+                            activeDotColor: TColor.white.withOpacity(0.6)),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -122,7 +126,7 @@ class _OnboardingState extends State<Onboarding> {
                         child: Text("Next",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                color: TColor.white)),
+                                color: TColor.white.withOpacity(0.6))),
                       ),
                     ],
                   ),

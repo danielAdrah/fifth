@@ -6,6 +6,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import '../../theme.dart';
 import '../../common/rounded_textField.dart';
 import '../../common/primary_button.dart';
+import'../../widgets/typeDropdownSearch.dart';
 
 class AddExpenseView extends StatefulWidget {
   const AddExpenseView({super.key});
@@ -94,29 +95,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                       const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.all(25),
-                        child: DropdownSearch<String>(
-                          onChanged: (value) {
-                            if (value != null) {
-                              Get.find<ExpenseData>()
-                                  .updateSelectedExpenseType(value);
-                            }
-                          },
-                          popupProps: const PopupProps.menu(
-                            showSelectedItems: true,
-                          ),
-                          items: items,
-                          dropdownDecoratorProps: DropDownDecoratorProps(
-                            baseStyle: TextStyle(color: TColor.white),
-                            dropdownSearchDecoration: InputDecoration(
-                              label: Text(
-                                "Choose A Type",
-                                style: TextStyle(color: TColor.border),
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(18)),
-                            ),
-                          ),
-                        ),
+                        child: TypeDropDown(),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(25),

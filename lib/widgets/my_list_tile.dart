@@ -26,7 +26,7 @@ class MyListTile extends StatelessWidget {
         iconData = Icons.local_cafe;
         break;
       case "Entertainment":
-        iconData = Icons.play_arrow;
+        iconData = Icons.movie;
         break;
       case "Education":
         iconData = Icons.school;

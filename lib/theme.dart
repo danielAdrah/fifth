@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
+// const Color(0xff5E00F5)
 class TColor {
-  static Color get primary => const Color(0xff5E00F5);
+  static Color get primary => const Color(0xffCFCFFC);
   static Color get primary500 => const Color(0xff7722FF );
   static Color get primary20 => const Color(0xff924EFF);
   static Color get primary10 => const Color(0xffAD7BFF);
