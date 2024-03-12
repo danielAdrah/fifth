@@ -32,6 +32,8 @@ class MyListTile extends StatelessWidget {
         iconData = Icons.school;
         break;
       case "Other":
+        iconData = Icons.more_horiz;
+        break;
       default:
         iconData = Icons.help_outline;
         break;

@@ -5,6 +5,7 @@ import '../add_expenses/add_expense_view.dart';
 import 'package:get/get.dart';
 import '../../widgets/my_list_tile.dart';
 import '../settings/settings_view.dart';
+import '../../widgets/my_pie_chart.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -33,7 +34,8 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 //here will be the piechart
-                child: Column(
+                child: ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -43,7 +45,7 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              Get.to(()=>const SettingsView());
+                              Get.to(() => const SettingsView());
                             },
                             icon: Icon(
                               Icons.settings_sharp,
@@ -54,7 +56,17 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
                     ),
-                    //chart
+                    const SizedBox(height: 10),
+                    Center(
+                        child: Text("Expenses",
+                            style: TextStyle(
+                                color: TColor.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700))),
+                    const SizedBox(height: 15),
+                    Container(
+                        // height: media.width * 0.9,
+                        child: Center(child: MyPieChart())),
                   ],
                 ),
               ),

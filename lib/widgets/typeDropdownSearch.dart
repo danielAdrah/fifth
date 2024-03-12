@@ -6,7 +6,6 @@ import '../model/expense_data.dart';
 import '../theme.dart';
 
 class TypeDropDown extends StatefulWidget {
-  
   const TypeDropDown({super.key});
 
   @override
@@ -22,7 +21,6 @@ class _TypeDropDownState extends State<TypeDropDown> {
     "Other"
   ];
   @override
-  
   Widget build(BuildContext context) {
     return DropdownSearch<String>(
       onChanged: (value) {
@@ -53,7 +51,7 @@ class _TypeDropDownState extends State<TypeDropDown> {
               icon = Icons.help;
           }
           return Container(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: isSelected ? TColor.gray50 : Colors.transparent,
             ),
