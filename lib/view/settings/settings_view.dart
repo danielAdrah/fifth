@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../common/nav_bar.dart';
+import '../../common/settings_value.dart';
 import '../../theme.dart';
 
 class SettingsView extends StatefulWidget {
@@ -86,60 +87,64 @@ class _SettingsViewState extends State<SettingsView> {
                             color: TColor.gray40.withOpacity(0.4),
                             borderRadius: BorderRadius.circular(24),
                           ),
-                          child: Column(
+                          child: const Column(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("The Name",
-                                        style: TextStyle(
-                                          color: TColor.white,
-                                        )),
-                                    Icon(
-                                      Icons.access_time_filled_outlined,
-                                      color: TColor.white,
-                                    )
-                                  ],
-                                ),
+                              SettingsValue(
+                                name: "first",
+                                icon: Icons.access_time_filled_outlined,
                               ),
-                              const SizedBox(height: 5),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("The Name",
-                                        style: TextStyle(
-                                          color: TColor.white,
-                                        )),
-                                    Icon(
-                                      Icons.access_time_filled_outlined,
-                                      color: TColor.white,
-                                    )
-                                  ],
-                                ),
+                              SizedBox(height: 5),
+                              SettingsValue(
+                                name: "first",
+                                icon: Icons.access_time_filled_outlined,
                               ),
-                              const SizedBox(height: 5),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("The Name",
-                                        style: TextStyle(
-                                          color: TColor.white,
-                                        )),
-                                    Icon(
-                                      Icons.access_time_filled_outlined,
-                                      color: TColor.white,
-                                    )
-                                  ],
-                                ),
+                              SizedBox(height: 5),
+                              SettingsValue(
+                                name: "first",
+                                icon: Icons.access_time_filled_outlined,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ]),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 15, bottom: 2, left: 10),
+                      child: Text(
+                        "Secondary",
+                        style: TextStyle(
+                            color: TColor.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Container(
+                      // height: media.width * 1,
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 20, right: 20, bottom: 20),
+                      child: Column(children: [
+                        Container(
+                          padding: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            color: TColor.gray40.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: const Column(
+                            children: [
+                              SettingsValue(
+                                name: "second",
+                                icon: Icons.access_time_filled_outlined,
+                              ),
+                              SizedBox(height: 5),
+                              SettingsValue(
+                                name: "second",
+                                icon: Icons.access_time_filled_outlined,
+                              ),
+                              SizedBox(height: 5),
+                              SettingsValue(
+                                name: "second",
+                                icon: Icons.access_time_filled_outlined,
                               ),
                             ],
                           ),

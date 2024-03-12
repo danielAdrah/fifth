@@ -56,14 +56,14 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 5),
                     Center(
                         child: Text("Expenses",
                             style: TextStyle(
                                 color: TColor.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w700))),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 25),
                     Container(
                         // height: media.width * 0.9,
                         child: Center(child: MyPieChart())),

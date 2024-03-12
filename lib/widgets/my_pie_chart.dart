@@ -19,7 +19,7 @@ class _MyPieChartState extends State<MyPieChart> {
 
     // Static PieChartData
     List<PieChartData> pieChartData = [
-      PieChartData("Food", 25),
+      PieChartData("Food", 32),
       PieChartData("Drinks", 30),
       PieChartData("Entertainment", 45),
       PieChartData("Education", 35),
@@ -31,7 +31,7 @@ class _MyPieChartState extends State<MyPieChart> {
       animationDuration: Duration(milliseconds: 800),
       chartRadius: MediaQuery.of(context).size.width / 1.8,
       chartType: ChartType.ring,
-      ringStrokeWidth: 25,
+      ringStrokeWidth: 45,
       chartLegendSpacing: 40,
       legendOptions: LegendOptions(
           showLegendsInRow: true,
