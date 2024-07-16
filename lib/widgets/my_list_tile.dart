@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get/get.dart';
+import '../controller/expense_controller.dart';
 import '../theme.dart';
 
-class MyListTile extends StatelessWidget {
+class MyListTile extends StatefulWidget {
   final String type;
   final String title;
   final String price;
@@ -16,9 +19,15 @@ class MyListTile extends StatelessWidget {
   });
 
   @override
+  State<MyListTile> createState() => _MyListTileState();
+}
+
+class _MyListTileState extends State<MyListTile> {
+  final _controller = Get.put(ExpenseController());
+  @override
   Widget build(BuildContext context) {
     IconData iconData;
-    switch (type) {
+    switch (widget.type) {
       case "Food":
         iconData = Icons.fastfood;
         break;
@@ -55,14 +64,15 @@ class MyListTile extends StatelessWidget {
               iconData,
               color: TColor.white.withOpacity(0.6),
             ),
-            title: Text(title),
-            subtitle: Text('${date.day}/${date.month}/${date.year}'),
+            title: Text(widget.title),
+            subtitle: Text(
+                '${widget.date.day}/${widget.date.month}/${widget.date.year}'),
             trailing: Column(
               children: [
                 const SizedBox(height: 10),
-                Text(type,
+                Text(widget.type,
                     style: TextStyle(color: TColor.white.withOpacity(0.6))),
-                Text('\$$price',
+                Text('\$${widget.price}',
                     style: TextStyle(color: TColor.white.withOpacity(0.6))),
               ],
             ),

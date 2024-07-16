@@ -5,7 +5,8 @@ import '../theme.dart';
 class SettingsValue extends StatelessWidget {
   final String name;
   final IconData icon;
-  const SettingsValue({super.key,required this.name,required this.icon});
+  final String text;
+  const SettingsValue({super.key, required this.name, required this.icon,required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +15,24 @@ class SettingsValue extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(name,
-              style: TextStyle(
+          Row(
+            children: [
+              Icon(
+                icon,
                 color: TColor.white,
-              )),
-          Icon(
-           icon,
-            color: TColor.white,
-          )
+              ),
+              const SizedBox(width: 8),
+              Text(name,
+                  style: TextStyle(
+                    color: TColor.white,
+                  )),
+            ],
+            
+          ),
+          Text(text,
+                  style: TextStyle(
+                    color: TColor.white,
+                  )),
         ],
       ),
     );

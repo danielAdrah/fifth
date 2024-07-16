@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../theme.dart';
 import '../add_expenses/add_expense_view.dart';
+import '../charts_view/chart_view.dart';
 import '../home/home_view.dart';
 
 class BottomBarView extends StatefulWidget {
@@ -30,8 +32,7 @@ class _BottomBarViewState extends State<BottomBarView> {
             children: [
               const Spacer(),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
@@ -62,7 +63,7 @@ class _BottomBarViewState extends State<BottomBarView> {
                             onPressed: () {
                               setState(() {
                                 selectTab = 1;
-                                currentTabView = Container();
+                                currentTabView = ChartView();
                               });
                             },
                             icon: Icon(
@@ -109,10 +110,7 @@ class _BottomBarViewState extends State<BottomBarView> {
                     ]),
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const AddExpenseView()));
+                        Get.to(AddExpenseView());
                       },
                       child: Container(
                         margin: const EdgeInsets.all(20),

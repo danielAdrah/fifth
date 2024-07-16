@@ -25,7 +25,7 @@ class _TypeDropDownState extends State<TypeDropDown> {
     return DropdownSearch<String>(
       onChanged: (value) {
         if (value != null) {
-          Get.find<ExpenseData>().updateSelectedExpenseType(value);
+          // Get.find<ExpenseData>().updateSelectedExpenseType(value);
         }
       },
       popupProps: PopupProps.menu(

@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
-class RoundedTextField extends StatefulWidget {
+class RoundedTextArea extends StatelessWidget {
   final String title;
+  final int length;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final TextAlign titleAlign;
   final Widget icon;
   final bool obscureText;
   final VoidCallback onIconPressed;
-  const RoundedTextField(
+  const RoundedTextArea(
       {super.key,
       required this.title,
       this.controller,
@@ -18,13 +19,9 @@ class RoundedTextField extends StatefulWidget {
       required this.icon,
       this.keyboardType,
       this.obscureText = false,
-      required this.onIconPressed});
+      required this.onIconPressed,
+      required this.length});
 
-  @override
-  State<RoundedTextField> createState() => _RoundedTextFieldState();
-}
-
-class _RoundedTextFieldState extends State<RoundedTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,8 +31,8 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
           children: [
             Expanded(
               child: Text(
-                widget.title,
-                textAlign: widget.titleAlign,
+                title,
+                textAlign: titleAlign,
                 style: TextStyle(
                     color: TColor.white.withOpacity(0.4), fontSize: 12),
               ),
@@ -46,24 +43,24 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
           height: 4,
         ),
         Container(
-          height: 48,
+          height: 100,
           width: double.maxFinite,
           decoration: BoxDecoration(
             color: TColor.gray60.withOpacity(0.8),
             border: Border.all(color: TColor.gray70),
             borderRadius: BorderRadius.circular(15),
           ),
-          child: TextField(
-            
+          child: TextFormField(
+            maxLines: length,
             style:
                 TextStyle(color: TColor.white, decoration: TextDecoration.none),
-            controller: widget.controller,
-            keyboardType: widget.keyboardType,
-            obscureText: widget.obscureText,
+            controller: controller,
+            keyboardType: keyboardType,
+            obscureText: obscureText,
             decoration: InputDecoration(
               suffixIcon: GestureDetector(
-                onTap: widget.onIconPressed,
-                child: widget.icon,
+                onTap: onIconPressed,
+                child: icon,
               ),
               focusedBorder: InputBorder.none,
               errorBorder: InputBorder.none,

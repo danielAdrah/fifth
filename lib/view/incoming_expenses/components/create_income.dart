@@ -5,23 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
-import '../../common/custom_dialog.dart';
-import '../../controller/expense_controller.dart';
+import '../../../common/primary_button.dart';
+import '../../../common/rounded_textField.dart';
+import '../../../controller/expense_controller.dart';
+import '../../../theme.dart';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
-import '../../controller/user_state.dart';
-import '../../theme.dart';
-import '../../common/rounded_textField.dart';
-import '../../common/primary_button.dart';
 
-class AddExpenseView extends StatefulWidget {
-  const AddExpenseView({super.key});
+class CreateIncome extends StatefulWidget {
+  const CreateIncome({super.key});
 
   @override
-  State<AddExpenseView> createState() => _AddExpenseViewState();
+  State<CreateIncome> createState() => _CreateIncomeState();
 }
 
-class _AddExpenseViewState extends State<AddExpenseView> {
+class _CreateIncomeState extends State<CreateIncome> {
   DateTime date = DateTime.now();
   List<String> items = [
     "Food",
@@ -32,13 +30,14 @@ class _AddExpenseViewState extends State<AddExpenseView> {
   ];
 
   void clearField() {
-    controller.nameController.clear();
-    controller.priceController.clear();
-    controller.quantityController.clear();
+    incomeName.clear();
+    incomeQuantity.clear();
+    incomePrize.clear();
   }
 
-  final controller = Get.put(ExpenseController());
-
+  final TextEditingController incomeName = TextEditingController();
+  final TextEditingController incomePrize = TextEditingController();
+  final TextEditingController incomeQuantity = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -69,7 +68,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                   delay: Duration(milliseconds: 100),
                   curve: Curves.decelerate,
                   child: Text(
-                    "Add Expense",
+                    "Create Income Expense",
                     style: TextStyle(
                         color: TColor.white,
                         fontSize: 20,
@@ -106,7 +105,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: DropdownSearch<String>(
                             onChanged: (value) {
-                              controller.item = value;
+                              // controller.item = value;
                             },
                             popupProps: PopupProps.menu(
                               itemBuilder: (context, item, isSelected) {
@@ -176,7 +175,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: RoundedTextField(
                             title: "Name",
-                            controller: controller.nameController,
+                            controller: incomeName,
                             icon: Icon(Icons.near_me),
                             onIconPressed: () {},
                           ),
@@ -185,7 +184,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: RoundedTextField(
                             title: "Quantity",
-                            controller: controller.quantityController,
+                            controller: incomeQuantity,
                             icon: Icon(Icons.near_me),
                             onIconPressed: () {},
                             keyboardType: TextInputType.number,
@@ -195,7 +194,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: RoundedTextField(
                             title: "Price",
-                            controller: controller.priceController,
+                            controller: incomePrize,
                             keyboardType: TextInputType.number,
                             icon: Icon(Icons.money),
                             onIconPressed: () {},
@@ -205,13 +204,9 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: PrimaryButton(
-                              title: "Add",
+                              title: "Create",
                               onPressed: () {
-                                controller.createExpense();
-                                // if (controller.isAdded.value = true) {}
                                 clearField();
-
-                                Get.back();
                               }),
                         )
                       ],

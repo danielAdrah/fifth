@@ -1,11 +1,17 @@
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, unnecessary_string_interpolations
+
+import 'package:animate_do/animate_do.dart';
 import 'package:fifth/model/expense_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import '../../controller/expense_controller.dart';
 import '../../theme.dart';
-import '../add_expenses/add_expense_view.dart';
+// import '../add_expenses/add_expense_view.dart';
 import 'package:get/get.dart';
 import '../../widgets/my_list_tile.dart';
 import '../settings/settings_view.dart';
 import '../../widgets/my_pie_chart.dart';
+import '../update_expense/update_expense.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -15,6 +21,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final controller = Get.put(ExpenseController());
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -25,12 +32,12 @@ class _HomeViewState extends State<HomeView> {
           child: Column(
             children: [
               Container(
-                height: media.width * 1.1,
+                height: media.width * 1,
                 decoration: BoxDecoration(
                   color: TColor.gray70.withOpacity(0.5),
                   borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
                   ),
                 ),
                 //here will be the piechart
@@ -38,14 +45,15 @@ class _HomeViewState extends State<HomeView> {
                   // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7, vertical: 8),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: media.width * 0.03),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButton(
                             onPressed: () {
-                              Get.to(() => const SettingsView());
+                              controller.displayExpense();
+                              // Get.to(() => const SettingsView());
                             },
                             icon: Icon(
                               Icons.settings_sharp,
@@ -56,14 +64,14 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 5),
+                    // const SizedBox(height: 5),
                     Center(
                         child: Text("Expenses",
                             style: TextStyle(
                                 color: TColor.white,
-                                fontSize: 20,
+                                fontSize: media.width * 0.05,
                                 fontWeight: FontWeight.w700))),
-                    const SizedBox(height: 25),
+                    SizedBox(height: media.width * 0.04),
                     Container(
                         // height: media.width * 0.9,
                         child: Center(child: MyPieChart())),
@@ -71,36 +79,50 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               const SizedBox(height: 20),
-              GetBuilder<ExpenseData>(
-                init: ExpenseData(),
-                builder: (controller) {
-                  if (controller.getAllexpense().isEmpty) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 90),
-                      child: Center(
-                        child: Text(
-                          "No expenses added yet.\nTap the + button to add a new expense.",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 16, color: TColor.gray30),
-                        ),
+              Obx(
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: controller.expenses.length,
+                  itemBuilder: ((context, index) {
+                    var data = controller.expenses[index];
+                    return FadeInDown(
+                      delay: Duration(milliseconds: 500),
+                      curve: Curves.decelerate,
+                      child: Slidable(
+                        endActionPane: ActionPane(
+                            motion: const StretchMotion(),
+                            children: [
+                              SlidableAction(
+                                onPressed: (context) {
+                                  controller.deleteExpense(data.id);
+                                },
+                                icon: Icons.delete,
+                                backgroundColor: Colors.red,
+                                borderRadius: BorderRadius.circular(5),
+                                spacing: 2,
+                              ),
+                              SlidableAction(
+                                onPressed: (context) {
+                                  Get.to(UpdateExpense(id: data.id));
+                                },
+                                icon: Icons.edit,
+                                backgroundColor: Colors.green,
+                                borderRadius: BorderRadius.circular(5),
+                                spacing: 2,
+                              ),
+                            ]),
+                        child: MyListTile(
+                            type: "${data.expenseName}",
+                            title: "${data.itemName}",
+                            price: "${data.price}",
+                            date: data.timePurchased),
                       ),
                     );
-                  } else {
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: controller.getAllexpense().length,
-                        itemBuilder: ((context, index) {
-                          var expense = controller.getAllexpense()[index];
-                          return MyListTile(
-                              type: expense.type,
-                              title: expense.name,
-                              price: expense.price,
-                              date: expense.date);
-                        }));
-                  }
-                },
-              )
+                  }),
+                ),
+              ),
+              SizedBox(height: 50),
             ],
           ),
         ),

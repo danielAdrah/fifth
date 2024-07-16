@@ -5,24 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
-import '../../common/custom_dialog.dart';
 import '../../controller/expense_controller.dart';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
-import '../../controller/user_state.dart';
 import '../../theme.dart';
 import '../../common/rounded_textField.dart';
 import '../../common/primary_button.dart';
 
-class AddExpenseView extends StatefulWidget {
-  const AddExpenseView({super.key});
+class UpdateExpense extends StatefulWidget {
+  UpdateExpense({super.key, required this.id});
+  int id;
 
   @override
-  State<AddExpenseView> createState() => _AddExpenseViewState();
+  State<UpdateExpense> createState() => _UpdateExpenseState();
 }
 
-class _AddExpenseViewState extends State<AddExpenseView> {
+class _UpdateExpenseState extends State<UpdateExpense> {
   DateTime date = DateTime.now();
+
   List<String> items = [
     "Food",
     "Drinks",
@@ -32,9 +32,9 @@ class _AddExpenseViewState extends State<AddExpenseView> {
   ];
 
   void clearField() {
-    controller.nameController.clear();
-    controller.priceController.clear();
-    controller.quantityController.clear();
+    controller.newNameController.clear();
+    controller.newPriceController.clear();
+    controller.newQuantityController.clear();
   }
 
   final controller = Get.put(ExpenseController());
@@ -69,7 +69,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                   delay: Duration(milliseconds: 100),
                   curve: Curves.decelerate,
                   child: Text(
-                    "Add Expense",
+                    "Update Expense",
                     style: TextStyle(
                         color: TColor.white,
                         fontSize: 20,
@@ -106,7 +106,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: DropdownSearch<String>(
                             onChanged: (value) {
-                              controller.item = value;
+                              controller.newItem = value;
                             },
                             popupProps: PopupProps.menu(
                               itemBuilder: (context, item, isSelected) {
@@ -175,8 +175,8 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                         Padding(
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: RoundedTextField(
-                            title: "Name",
-                            controller: controller.nameController,
+                            title: "New Name",
+                            controller: controller.newNameController,
                             icon: Icon(Icons.near_me),
                             onIconPressed: () {},
                           ),
@@ -184,8 +184,8 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                         Padding(
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: RoundedTextField(
-                            title: "Quantity",
-                            controller: controller.quantityController,
+                            title: "New Quantity",
+                            controller: controller.newQuantityController,
                             icon: Icon(Icons.near_me),
                             onIconPressed: () {},
                             keyboardType: TextInputType.number,
@@ -194,8 +194,8 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                         Padding(
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: RoundedTextField(
-                            title: "Price",
-                            controller: controller.priceController,
+                            title: "New Price",
+                            controller: controller.newPriceController,
                             keyboardType: TextInputType.number,
                             icon: Icon(Icons.money),
                             onIconPressed: () {},
@@ -207,10 +207,8 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                           child: PrimaryButton(
                               title: "Add",
                               onPressed: () {
-                                controller.createExpense();
-                                // if (controller.isAdded.value = true) {}
+                                controller.updateExpense(widget.id);
                                 clearField();
-
                                 Get.back();
                               }),
                         )

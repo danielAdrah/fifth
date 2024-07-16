@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
-class RoundedTextField extends StatefulWidget {
+class DateTextField extends StatelessWidget {
   final String title;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
@@ -10,9 +10,11 @@ class RoundedTextField extends StatefulWidget {
   final Widget icon;
   final bool obscureText;
   final VoidCallback onIconPressed;
-  const RoundedTextField(
+  void Function()? onTap;
+    DateTextField(
       {super.key,
       required this.title,
+      required this.onTap,
       this.controller,
       this.titleAlign = TextAlign.left,
       required this.icon,
@@ -20,11 +22,6 @@ class RoundedTextField extends StatefulWidget {
       this.obscureText = false,
       required this.onIconPressed});
 
-  @override
-  State<RoundedTextField> createState() => _RoundedTextFieldState();
-}
-
-class _RoundedTextFieldState extends State<RoundedTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,8 +31,8 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
           children: [
             Expanded(
               child: Text(
-                widget.title,
-                textAlign: widget.titleAlign,
+                title,
+                textAlign: titleAlign,
                 style: TextStyle(
                     color: TColor.white.withOpacity(0.4), fontSize: 12),
               ),
@@ -54,16 +51,17 @@ class _RoundedTextFieldState extends State<RoundedTextField> {
             borderRadius: BorderRadius.circular(15),
           ),
           child: TextField(
-            
+            onTap: onTap,
+            readOnly: true,
             style:
                 TextStyle(color: TColor.white, decoration: TextDecoration.none),
-            controller: widget.controller,
-            keyboardType: widget.keyboardType,
-            obscureText: widget.obscureText,
+            controller: controller,
+            keyboardType: keyboardType,
+            obscureText: obscureText,
             decoration: InputDecoration(
               suffixIcon: GestureDetector(
-                onTap: widget.onIconPressed,
-                child: widget.icon,
+                onTap: onIconPressed,
+                child: icon,
               ),
               focusedBorder: InputBorder.none,
               errorBorder: InputBorder.none,

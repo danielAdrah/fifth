@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 import 'package:pie_chart/pie_chart.dart';
-
 import '../model/pie_chart_model.dart';
 import '../theme.dart';
+// import 'package:http/http.dart';
 
 class MyPieChart extends StatefulWidget {
   const MyPieChart({super.key});
@@ -15,7 +15,7 @@ class MyPieChart extends StatefulWidget {
 class _MyPieChartState extends State<MyPieChart> {
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
+    // var media = MediaQuery.of(context).size;
 
     // Static PieChartData
     List<PieChartData> pieChartData = [

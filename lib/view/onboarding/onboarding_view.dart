@@ -1,10 +1,15 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../theme.dart';
 import '../bottom_bar/bottom_bar_view.dart';
+import '../mainNavBar/main_navbar.dart';
+import '../signUp&logIn/sign_in_view.dart';
+import '../signUp&logIn/sign_up_view.dart';
 import 'onboarding_design.dart';
+import 'package:lottie/lottie.dart';
 // import '../homePage.dart';
 
 class Onboarding extends StatefulWidget {
@@ -38,37 +43,47 @@ class _OnboardingState extends State<Onboarding> {
                   const SizedBox(
                     height: 200,
                   ),
-                  SizedBox(
-                    width: 260,
-                    height: 260,
-                    child: Center(
-                      child: SvgPicture.asset(
-                        pages[index].image!,
-                      ),
+                  FadeInDown(
+                    delay: Duration(milliseconds: 500),
+                    child: SizedBox(
+                      width: 300,
+                      height: 300,
+                      child: Center(
+                          child: 
+                          SvgPicture.asset(
+                            pages[index].image!,
+                          ),
+                          ),
                     ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    pages[index].title!,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        color: TColor.white.withOpacity(0.6)),
+                  ZoomIn(
+                    delay: Duration(milliseconds: 600),
+                    child: Text(
+                      pages[index].title!,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                          color: TColor.white.withOpacity(0.6)),
+                    ),
                   ),
                   const SizedBox(
                     height: 16,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      pages[index].body!,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: TColor.white.withOpacity(0.6),
-                          fontWeight: FontWeight.normal,
-                          fontStyle: FontStyle.italic),
+                  ZoomIn(
+                    delay: Duration(milliseconds: 700),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        pages[index].body!,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: TColor.white.withOpacity(0.6),
+                            fontWeight: FontWeight.normal,
+                            fontStyle: FontStyle.italic),
+                      ),
                     ),
                   ),
                 ]),
@@ -89,7 +104,7 @@ class _OnboardingState extends State<Onboarding> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const BottomBarView()));
+                                builder: (context) => const SignUp()));
                       },
                       child: const Text(
                         "GetStarted",
