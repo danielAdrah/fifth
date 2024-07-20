@@ -205,7 +205,7 @@ class _SignUpState extends State<SignUp> {
                                 child: PrimaryButton(
                                     title: "Get Started, It's Free",
                                     onPressed: () {
-                                      controller.SignUp();
+                                      controller.singUp();
                                     }),
                               ),
 

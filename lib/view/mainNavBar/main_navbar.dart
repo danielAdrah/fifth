@@ -1,6 +1,8 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:animate_do/animate_do.dart';
+import 'package:animated_icon/animated_icon.dart';
+import 'package:fifth/common/primary_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +15,8 @@ import '../goals/goals_view.dart';
 import '../home/home_view.dart';
 import '../incoming_expenses/components/create_income.dart';
 import '../incoming_expenses/incoming_expense_view.dart';
+import 'package:animated_button/animated_button.dart';
+import 'package:rive_animated_icon/rive_animated_icon.dart';
 
 class MainNavBar extends StatefulWidget {
   const MainNavBar({super.key});
@@ -54,7 +58,8 @@ class _MainNavBarState extends State<MainNavBar> {
         onPressed: () {
           //here we will add the addExpense screen
 
-          _showDialoge(context);
+          // _showDialoge(context);
+          _showawesome(context);
         },
         child: Container(
           height: 70,
@@ -87,10 +92,18 @@ class _MainNavBarState extends State<MainNavBar> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.home,
-                      size: 25,
+                    AnimateIcon(
+                      onTap: () {
+                        setState(() {
+                          selectTab = 0;
+                          currentTabView = const HomeView();
+                        });
+                      },
+                      iconType: IconType.animatedOnTap,
+                      height: 25,
+                      width: 25,
                       color: selectTab == 0 ? TColor.white : TColor.gray30,
+                      animateIcon: AnimateIcons.home,
                     ),
                     Text(
                       "Home",
@@ -105,16 +118,24 @@ class _MainNavBarState extends State<MainNavBar> {
                 onTap: () {
                   setState(() {
                     selectTab = 1;
-                    currentTabView = ChartView();
+                    currentTabView = const ChartView();
                   });
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.bar_chart,
-                      size: 24,
+                    AnimateIcon(
+                      onTap: () {
+                        setState(() {
+                          selectTab = 1;
+                          currentTabView = const ChartView();
+                        });
+                      },
+                      iconType: IconType.animatedOnTap,
+                      height: 25,
+                      width: 25,
                       color: selectTab == 1 ? TColor.white : TColor.gray30,
+                      animateIcon: AnimateIcons.activity,
                     ),
                     Text(
                       "Chart",
@@ -131,20 +152,23 @@ class _MainNavBarState extends State<MainNavBar> {
                   setState(() {
                     selectTab = 2;
                     currentTabView = GoalView();
-                    // Container(
-                    //   child: Center(
-                    //     child: Text("2"),
-                    //   ),
-                    // );
                   });
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      CupertinoIcons.square_favorites,
-                      size: 24,
+                    AnimateIcon(
+                      onTap: () {
+                        setState(() {
+                          selectTab = 2;
+                          currentTabView = GoalView();
+                        });
+                      },
+                      iconType: IconType.animatedOnTap,
+                      height: 25,
+                      width: 25,
                       color: selectTab == 2 ? TColor.white : TColor.gray30,
+                      animateIcon: AnimateIcons.list,
                     ),
                     Text(
                       "Goals",
@@ -165,9 +189,18 @@ class _MainNavBarState extends State<MainNavBar> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
-                      CupertinoIcons.timer,
+                    AnimateIcon(
+                      onTap: () {
+                        setState(() {
+                          selectTab = 3;
+                          currentTabView = IcomingExpenses();
+                        });
+                      },
+                      iconType: IconType.animatedOnTap,
+                      height: 25,
+                      width: 25,
                       color: selectTab == 3 ? TColor.white : TColor.gray30,
+                      animateIcon: AnimateIcons.hourglass,
                     ),
                     Text(
                       "Icoming",
@@ -184,6 +217,100 @@ class _MainNavBarState extends State<MainNavBar> {
       ),
     );
   }
+}
+
+_showawesome(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible:
+        true, // Set to false if you want the dialog to not close when tapping outside
+    builder: (BuildContext context) {
+      var width = MediaQuery.of(context).size.width;
+      var height = MediaQuery.of(context).size.height;
+      return ZoomIn(
+        delay: Duration(milliseconds: 150),
+        curve: Curves.fastLinearToSlowEaseIn,
+        child: AlertDialog(
+          elevation: 5,
+          shadowColor: TColor.border,
+          backgroundColor: TColor.gray70,
+          content: Container(
+            width: width * 0.65,
+            height: height * 0.23,
+            child: ZoomIn(
+              delay: Duration(milliseconds: 150),
+              curve: Curves.fastLinearToSlowEaseIn,
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 10),
+                  // Image.asset(
+                  //   "assets/img/correct.png",
+                  //   height: 80,
+                  //   width: 80,
+                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AnimateIcon(
+                        onTap: () {},
+                        // width: 100,
+                        // height: 100,
+                        iconType: IconType.continueAnimation,
+                        color: Colors.green,
+                        animateIcon: AnimateIcons.expensive,
+                      ),
+                      SizedBox(width: 4),
+                      AnimateIcon(
+                        onTap: () {},
+                        // width: 100,
+                        // height: 100,
+                        iconType: IconType.continueAnimation,
+                        color: Colors.green,
+                        animateIcon: AnimateIcons.expensive,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    "Seccussfuly Added",
+                    style: TextStyle(
+                        color: TColor.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AnimatedButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text(
+                        "Ok",
+                        style: TextStyle(
+                            color: TColor.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      color: Colors.green,
+                      height: 50,
+                      shadowDegree: ShadowDegree.dark,
+                    ),
+                  )
+
+                  // Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: PrimaryButton(title: "Ok", onPressed: () {}),
+                  // )
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }
 
 _showDialoge(BuildContext context) {
@@ -232,7 +359,6 @@ _showDialoge(BuildContext context) {
                         if (index == 2) {
                           Get.to(() => const CreateIncome());
                         }
-                      
                       },
                       child: ZoomIn(
                         delay: const Duration(milliseconds: 50),
@@ -264,56 +390,3 @@ _showDialoge(BuildContext context) {
         );
       });
 }
-
-// Row(
-//               children: [
-//                 InkWell(
-//                   onTap: () {
-//                     Get.to(AddExpenseView());
-//                   },
-//                   child: Container(
-//                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-//                     decoration: BoxDecoration(
-//                         border: Border.all(color: TColor.border),
-//                         borderRadius: BorderRadius.circular(25)),
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.center,
-//                       children: [
-//                         SizedBox(height: 10),
-//                         Image.asset("assets/img/budget.png",
-//                             width: 80, height: 80),
-//                         Text(
-//                           "Create\n Expense",
-//                           style: TextStyle(color: TColor.white, fontSize: 20),
-//                           textAlign: TextAlign.center,
-//                         )
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(width: 30),
-//                 InkWell(
-//                   onTap: () {
-//                     Get.to(CreateGoal());
-//                   },
-//                   child: Container(
-//                     padding: EdgeInsets.all(20),
-//                     decoration: BoxDecoration(
-//                         border: Border.all(color: TColor.border),
-//                         borderRadius: BorderRadius.circular(25)),
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.center,
-//                       children: [
-//                         Image.asset("assets/img/piggy-bank.png",
-//                             width: 80, height: 80),
-//                         Text(
-//                           "Create\n Goal",
-//                           style: TextStyle(color: TColor.white, fontSize: 20),
-//                           textAlign: TextAlign.center,
-//                         )
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),

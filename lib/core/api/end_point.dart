@@ -1,5 +1,5 @@
 class EndPoint {
-  static String baseUrl = "https://85.31.237.33:9000/project/";
+  static String baseUrl = "https://85.31.237.33/project/";
   static String logIn = "auth/log-in/";
   static String signUp = "auth/sign-up/";
   static String createItem = "charts/create-item/";

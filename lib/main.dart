@@ -1,8 +1,7 @@
-  
 import 'package:fifth/view/onboarding/onboarding_view.dart';
 import 'package:fifth/view/signUp&logIn/sign_up_view.dart';
 import 'package:flutter/material.dart';
- import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'theme.dart';
 import "package:get_storage/get_storage.dart";
 import './view/signUp&logIn/sign_in_view.dart';
@@ -25,9 +24,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,   
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-         fontFamily: "Inter",
+        fontFamily: "Inter",
         colorScheme: ColorScheme.fromSeed(
           seedColor: TColor.primary,
           background: TColor.gray80,
@@ -43,7 +42,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/bottomBar', page: () => const BottomBarView()),
       ],
       home: const MainNavBar(),
-      // Onboarding(),
+
+      //  Onboarding()
     );
   }
 }

@@ -158,7 +158,7 @@ class _SigninState extends State<Signin> {
                           child: PrimaryButton(
                               title: "Sign In",
                               onPressed: () async {
-                                controller.signIn();
+                                controller.singIn();
 
                                 // setState(() {
                                 //   isLoading = true;
