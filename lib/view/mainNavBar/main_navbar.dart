@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import '../../common/fali_alert.dart';
+import '../../common/success_alert.dart';
 import '../../theme.dart';
 import '../add_expenses/add_expense_view.dart';
 import '../charts_view/chart_view.dart';
@@ -16,7 +18,8 @@ import '../home/home_view.dart';
 import '../incoming_expenses/components/create_income.dart';
 import '../incoming_expenses/incoming_expense_view.dart';
 import 'package:animated_button/animated_button.dart';
-import 'package:rive_animated_icon/rive_animated_icon.dart';
+
+import '../spending_limit/spending_limit_view.dart';
 
 class MainNavBar extends StatefulWidget {
   const MainNavBar({super.key});
@@ -58,8 +61,8 @@ class _MainNavBarState extends State<MainNavBar> {
         onPressed: () {
           //here we will add the addExpense screen
 
-          // _showDialoge(context);
-          _showawesome(context);
+          _showDialoge(context);
+          // _showawesome(context);
         },
         child: Container(
           height: 70,
@@ -230,84 +233,7 @@ _showawesome(BuildContext context) {
       return ZoomIn(
         delay: Duration(milliseconds: 150),
         curve: Curves.fastLinearToSlowEaseIn,
-        child: AlertDialog(
-          elevation: 5,
-          shadowColor: TColor.border,
-          backgroundColor: TColor.gray70,
-          content: Container(
-            width: width * 0.65,
-            height: height * 0.23,
-            child: ZoomIn(
-              delay: Duration(milliseconds: 150),
-              curve: Curves.fastLinearToSlowEaseIn,
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 10),
-                  // Image.asset(
-                  //   "assets/img/correct.png",
-                  //   height: 80,
-                  //   width: 80,
-                  // ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AnimateIcon(
-                        onTap: () {},
-                        // width: 100,
-                        // height: 100,
-                        iconType: IconType.continueAnimation,
-                        color: Colors.green,
-                        animateIcon: AnimateIcons.expensive,
-                      ),
-                      SizedBox(width: 4),
-                      AnimateIcon(
-                        onTap: () {},
-                        // width: 100,
-                        // height: 100,
-                        iconType: IconType.continueAnimation,
-                        color: Colors.green,
-                        animateIcon: AnimateIcons.expensive,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    "Seccussfuly Added",
-                    style: TextStyle(
-                        color: TColor.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AnimatedButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text(
-                        "Ok",
-                        style: TextStyle(
-                            color: TColor.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      color: Colors.green,
-                      height: 50,
-                      shadowDegree: ShadowDegree.dark,
-                    ),
-                  )
-
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: PrimaryButton(title: "Ok", onPressed: () {}),
-                  // )
-                ],
-              ),
-            ),
-          ),
-        ),
+        child: FailAlert(width: width, height: height),
       );
     },
   );
@@ -336,17 +262,19 @@ _showDialoge(BuildContext context) {
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10),
-                  itemCount: 3,
+                  itemCount: 4,
                   itemBuilder: ((context, index) {
                     List<String> images = [
                       "assets/img/budget.png",
                       "assets/img/piggy-bank.png",
                       "assets/img/asset-management.png",
+                      "assets/img/financial-profit (1).png",
                     ];
                     List<String> titles = [
                       "Create Expense",
                       "Create\nGoal",
                       "Create Incoming",
+                      "Spending\nLimit"
                     ];
                     return InkWell(
                       onTap: () {
@@ -358,6 +286,9 @@ _showDialoge(BuildContext context) {
                         }
                         if (index == 2) {
                           Get.to(() => const CreateIncome());
+                        }
+                        if (index == 3) {
+                          Get.to(() => const SpendingLimit());
                         }
                       },
                       child: ZoomIn(

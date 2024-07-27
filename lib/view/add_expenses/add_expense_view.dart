@@ -171,6 +171,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                               ),
                             ),
                           ),
+                        
                         ),
                         Padding(
                           padding: EdgeInsets.all(media.width * 0.06),

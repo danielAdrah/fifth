@@ -13,20 +13,27 @@ import '../../../theme.dart';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
 
-class CreateGoal extends StatefulWidget {
-  const CreateGoal({super.key});
+class CreateLimit extends StatefulWidget {
+  const CreateLimit({super.key});
 
   @override
-  State<CreateGoal> createState() => _CreateGoalState();
+  State<CreateLimit> createState() => _CreateGoalState();
 }
 
-class _CreateGoalState extends State<CreateGoal> {
-  final TextEditingController goalName = TextEditingController();
-  final TextEditingController budget = TextEditingController();
-  final TextEditingController date = TextEditingController();
-  final TextEditingController notes = TextEditingController();
+class _CreateGoalState extends State<CreateLimit> {
+  // final TextEditingController limitName = TextEditingController();
+  final TextEditingController amount = TextEditingController();
+  final TextEditingController startDate = TextEditingController();
+  final TextEditingController endDate = TextEditingController();
 
   void clearField() {}
+  List<String> items = [
+    "Food",
+    "Drinks",
+    "Entertainment",
+    "Education",
+    "Other"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +65,7 @@ class _CreateGoalState extends State<CreateGoal> {
                   delay: Duration(milliseconds: 100),
                   curve: Curves.decelerate,
                   child: Text(
-                    " Create Goal  ",
+                    " Create Limit  ",
                     style: TextStyle(
                         color: TColor.white,
                         fontSize: 20,
@@ -144,6 +151,76 @@ class _CreateGoalState extends State<CreateGoal> {
                               ),
                               showSelectedItems: true,
                             ),
+                            items: items,
+                            dropdownButtonProps: DropdownButtonProps(
+                              color: TColor.border,
+                            ),
+                            dropdownDecoratorProps: DropDownDecoratorProps(
+                              baseStyle: TextStyle(color: TColor.white),
+                              dropdownSearchDecoration: InputDecoration(
+                                label: Text(
+                                  "Choose A Category",
+                                  style: TextStyle(color: TColor.border),
+                                ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(media.width * 0.06),
+                          child: DropdownSearch<String>(
+                            onChanged: (value) {
+                              // controller.item = value;
+                            },
+                            popupProps: PopupProps.menu(
+                              itemBuilder: (context, item, isSelected) {
+                                IconData icon;
+                                switch (item) {
+                                  case "Food":
+                                    icon = Icons.fastfood;
+                                    break;
+                                  case "Drinks":
+                                    icon = Icons.local_cafe;
+                                    break;
+                                  case "Entertainment":
+                                    icon = Icons.movie;
+                                    break;
+                                  case "Education":
+                                    icon = Icons.school;
+                                    break;
+                                  case "Other":
+                                    icon = Icons.more_horiz;
+                                    break;
+                                  default:
+                                    icon = Icons.help;
+                                }
+                                return Container(
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    color: isSelected
+                                        ? TColor.gray50
+                                        : Colors.transparent,
+                                  ),
+                                  child: ListTile(
+                                    title: Text(
+                                      item,
+                                      style: TextStyle(color: TColor.white),
+                                    ),
+                                    leading: Icon(
+                                      icon,
+                                      color: TColor.white,
+                                    ),
+                                  ),
+                                );
+                              },
+                              menuProps: MenuProps(
+                                backgroundColor: TColor.gray50,
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              showSelectedItems: true,
+                            ),
                             items: [
                               "Syrian Bound",
                               "Dollar",
@@ -164,31 +241,23 @@ class _CreateGoalState extends State<CreateGoal> {
                             ),
                           ),
                         ),
+                        
                         Padding(
-                          padding: EdgeInsets.all(media.width * 0.03),
+                          padding: EdgeInsets.all(media.width * 0.06),
                           child: RoundedTextField(
-                            title: "Name",
-                            controller: goalName,
-                            icon: Icon(Icons.near_me),
-                            onIconPressed: () {},
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(media.width * 0.03),
-                          child: RoundedTextField(
-                            title: "Budget",
-                            controller: budget,
+                            title: "The Amount",
+                            controller: amount,
                             icon: Icon(Icons.near_me),
                             onIconPressed: () {},
                             keyboardType: TextInputType.number,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(media.width * 0.03),
+                          padding: EdgeInsets.all(media.width * 0.06),
                           child: DateTextField(
                             onTap: showDate,
-                            title: "Date",
-                            controller: date,
+                            title: "Start Date",
+                            controller: startDate,
                             keyboardType: TextInputType.number,
                             icon: Icon(
                               Icons.date_range,
@@ -198,15 +267,20 @@ class _CreateGoalState extends State<CreateGoal> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(media.width * 0.03),
-                          child: RoundedTextArea(
-                            length: 3,
-                            icon: Icon(Icons.money),
+                          padding: EdgeInsets.only(
+                              left: media.width * 0.06,
+                              right: media.width * 0.06,
+                              top: media.width * 0.06),
+                          child: DateTextField(
+                            onTap: showDate2,
+                            title: "End Date",
+                            controller: endDate,
+                            keyboardType: TextInputType.number,
+                            icon: Icon(
+                              Icons.date_range,
+                              color: TColor.primary,
+                            ),
                             onIconPressed: () {},
-                            title: "Notes",
-                            controller: notes,
-                            keyboardType: TextInputType.name,
-                            obscureText: false,
                           ),
                         ),
                         const SizedBox(height: 50),
@@ -241,7 +315,20 @@ class _CreateGoalState extends State<CreateGoal> {
       barrierColor: TColor.gray30,
     );
     if (picked != null) {
-      date.text = picked.toString().substring(0, 10);
+      startDate.text = picked.toString().substring(0, 10);
+    }
+  }
+
+  Future<void> showDate2() async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(3000),
+      barrierColor: TColor.gray30,
+    );
+    if (picked != null) {
+      endDate.text = picked.toString().substring(0, 10);
     }
   }
 }

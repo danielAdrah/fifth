@@ -29,12 +29,12 @@ class _NavBarState extends State<NavBar> {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: TColor.white.withOpacity(0.6),
+              color: TColor.white,
               size: 30,
             )),
         Text(
           widget.title,
-          style: TextStyle(color: TColor.white.withOpacity(0.7), fontSize: 20),
+          style: TextStyle(color: TColor.white, fontSize: 20),
         ),
         const SizedBox(width: 50),
       ],

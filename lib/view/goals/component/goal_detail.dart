@@ -34,8 +34,8 @@ class _GoalDetailState extends State<GoalDetail> {
                 Get.back();
               },
               icon: Icon(
-                Icons.arrow_back_ios,
-                color: TColor.gray40,
+                Icons.arrow_back,
+                color: TColor.white,
               )),
         ),
       ),
