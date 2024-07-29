@@ -1,23 +1,21 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sort_child_properties_last, unused_local_variable
 
 import 'package:animate_do/animate_do.dart';
 import 'package:animated_icon/animated_icon.dart';
-import 'package:fifth/common/primary_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../common/fali_alert.dart';
-import '../../common/success_alert.dart';
 import '../../theme.dart';
 import '../add_expenses/add_expense_view.dart';
+import '../add_expenses/choose_main_category.dart';
 import '../charts_view/chart_view.dart';
 import '../goals/component/create_goal.dart';
 import '../goals/goals_view.dart';
 import '../home/home_view.dart';
 import '../incoming_expenses/components/create_income.dart';
 import '../incoming_expenses/incoming_expense_view.dart';
-import 'package:animated_button/animated_button.dart';
 
 import '../spending_limit/spending_limit_view.dart';
 

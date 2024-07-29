@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, invalid_use_of_protected_member
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +10,12 @@ import '../../controller/expense_controller.dart';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../controller/user_state.dart';
+import '../../model/categories_model.dart';
+import '../../model/subcategory_model.dart';
 import '../../theme.dart';
 import '../../common/rounded_textField.dart';
 import '../../common/primary_button.dart';
+import '../../widgets/methods.dart';
 
 class AddExpenseView extends StatefulWidget {
   const AddExpenseView({super.key});
@@ -102,76 +105,36 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                     child: Column(
                       children: [
                         const SizedBox(height: 20),
-                        Padding(
-                          padding: EdgeInsets.all(media.width * 0.06),
-                          child: DropdownSearch<String>(
-                            onChanged: (value) {
-                              controller.item = value;
-                            },
-                            popupProps: PopupProps.menu(
-                              itemBuilder: (context, item, isSelected) {
-                                IconData icon;
-                                switch (item) {
-                                  case "Food":
-                                    icon = Icons.fastfood;
-                                    break;
-                                  case "Drinks":
-                                    icon = Icons.local_cafe;
-                                    break;
-                                  case "Entertainment":
-                                    icon = Icons.movie;
-                                    break;
-                                  case "Education":
-                                    icon = Icons.school;
-                                    break;
-                                  case "Other":
-                                    icon = Icons.more_horiz;
-                                    break;
-                                  default:
-                                    icon = Icons.help;
-                                }
-                                return Container(
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    color: isSelected
-                                        ? TColor.gray50
-                                        : Colors.transparent,
-                                  ),
-                                  child: ListTile(
-                                    title: Text(
-                                      item,
-                                      style: TextStyle(color: TColor.white),
-                                    ),
-                                    leading: Icon(
-                                      icon,
-                                      color: TColor.white,
-                                    ),
-                                  ),
-                                );
-                              },
-                              menuProps: MenuProps(
-                                backgroundColor: TColor.gray50,
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              showSelectedItems: true,
-                            ),
-                            items: items,
-                            dropdownButtonProps: DropdownButtonProps(
-                              color: TColor.border,
-                            ),
-                            dropdownDecoratorProps: DropDownDecoratorProps(
-                              baseStyle: TextStyle(color: TColor.white),
-                              dropdownSearchDecoration: InputDecoration(
-                                label: Text(
-                                  "Choose A Type",
-                                  style: TextStyle(color: TColor.border),
-                                ),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(18)),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Category",
+                                style: TextStyle(
+                                    color: TColor.white.withOpacity(0.4),
+                                    fontSize: 12),
                               ),
                             ),
-                          ),
-                        
+                            categoryDropdown(),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "SubCategory",
+                                style: TextStyle(
+                                    color: TColor.white.withOpacity(0.4),
+                                    fontSize: 12),
+                              ),
+                            ),
+                            subCategoryDropdown(),
+                          ],
                         ),
                         Padding(
                           padding: EdgeInsets.all(media.width * 0.06),
@@ -202,17 +165,15 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                             onIconPressed: () {},
                           ),
                         ),
-                        const SizedBox(height: 80),
+                        const SizedBox(height: 50),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: PrimaryButton(
                               title: "Add",
                               onPressed: () {
                                 controller.createExpense();
-                                // if (controller.isAdded.value = true) {}
+                                // controller.fetchSubcategory();
                                 clearField();
-
-                                Get.back();
                               }),
                         )
                       ],

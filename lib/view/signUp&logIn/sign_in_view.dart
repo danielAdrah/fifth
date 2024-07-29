@@ -34,9 +34,9 @@ class _SigninState extends State<Signin> {
         init: Get.find<UserController>(),
         builder: (controller) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            // if (controller.userState is SignInSuccess) {
-            //   Get.offAll(const MainNavBar());
-            // }
+            if (controller.userState is SignInSuccess) {
+              Get.offAll(const MainNavBar());
+            }
             if (controller.userState is SignInFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

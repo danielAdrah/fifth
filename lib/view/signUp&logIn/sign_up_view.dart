@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dio/dio.dart';
 import 'package:fifth/controller/user_state.dart';
 import 'package:flutter/material.dart';
@@ -205,7 +207,7 @@ class _SignUpState extends State<SignUp> {
                                 child: PrimaryButton(
                                     title: "Get Started, It's Free",
                                     onPressed: () {
-                                      controller.singUp();
+                                      controller.SignUp();
                                     }),
                               ),
 

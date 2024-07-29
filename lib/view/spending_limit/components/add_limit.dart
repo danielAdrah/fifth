@@ -9,6 +9,7 @@ import '../../../common/date_text_field.dart';
 import '../../../common/primary_button.dart';
 import '../../../common/rounded_textField.dart';
 import '../../../common/rounded_text_area.dart';
+import '../../../controller/limit_controller.dart';
 import '../../../theme.dart';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
@@ -22,10 +23,7 @@ class CreateLimit extends StatefulWidget {
 
 class _CreateGoalState extends State<CreateLimit> {
   // final TextEditingController limitName = TextEditingController();
-  final TextEditingController amount = TextEditingController();
-  final TextEditingController startDate = TextEditingController();
-  final TextEditingController endDate = TextEditingController();
-
+  final controller = Get.put(LimitController());
   void clearField() {}
   List<String> items = [
     "Food",
@@ -246,7 +244,7 @@ class _CreateGoalState extends State<CreateLimit> {
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: RoundedTextField(
                             title: "The Amount",
-                            controller: amount,
+                            controller: controller.amount,
                             icon: Icon(Icons.near_me),
                             onIconPressed: () {},
                             keyboardType: TextInputType.number,
@@ -257,7 +255,7 @@ class _CreateGoalState extends State<CreateLimit> {
                           child: DateTextField(
                             onTap: showDate,
                             title: "Start Date",
-                            controller: startDate,
+                            controller: controller.startDate,
                             keyboardType: TextInputType.number,
                             icon: Icon(
                               Icons.date_range,
@@ -274,7 +272,7 @@ class _CreateGoalState extends State<CreateLimit> {
                           child: DateTextField(
                             onTap: showDate2,
                             title: "End Date",
-                            controller: endDate,
+                            controller: controller.endDate,
                             keyboardType: TextInputType.number,
                             icon: Icon(
                               Icons.date_range,
@@ -289,6 +287,7 @@ class _CreateGoalState extends State<CreateLimit> {
                           child: PrimaryButton(
                               title: "Add",
                               onPressed: () {
+                                controller.createLimit();
                                 clearField();
 
                                 Get.back();
@@ -315,7 +314,7 @@ class _CreateGoalState extends State<CreateLimit> {
       barrierColor: TColor.gray30,
     );
     if (picked != null) {
-      startDate.text = picked.toString().substring(0, 10);
+      controller.startDate.text = picked.toString().substring(0, 10);
     }
   }
 
@@ -328,7 +327,7 @@ class _CreateGoalState extends State<CreateLimit> {
       barrierColor: TColor.gray30,
     );
     if (picked != null) {
-      endDate.text = picked.toString().substring(0, 10);
+      controller.endDate.text = picked.toString().substring(0, 10);
     }
   }
 }

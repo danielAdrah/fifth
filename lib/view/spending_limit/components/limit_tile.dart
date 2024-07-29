@@ -114,6 +114,7 @@ class _LimitTileState extends State<LimitTile> {
           LinearProgressIndicator(
             backgroundColor: TColor.gray60,
             valueColor: AlwaysStoppedAnimation(
+
               TColor.secondaryG50,
             ),
             minHeight: 3,
@@ -127,3 +128,12 @@ class _LimitTileState extends State<LimitTile> {
     );
   }
 }
+  // void updateProgressBasedOnInput(String input) {
+  //   setState(() {
+  //     // Example: Assume 1000 is the total limit, and input is the current spending
+  //     double spending = double.tryParse(input) ?? 0;
+  //     progressValue = spending / 1000; // Normalize to 0.0 - 1.0
+  //     if (progressValue > 1.0) progressValue = 1.0;
+  //     else if (progressValue < 0.0) progressValue = 0.0;
+  //   });
+  // }

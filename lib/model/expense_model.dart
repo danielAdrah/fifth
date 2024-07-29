@@ -10,44 +10,36 @@ String expenseModelToJson(List<ExpenseModel> data) => json.encode(List<dynamic>.
 
 class ExpenseModel {
     int id;
-    int totalPrice;
-    String user;
-    String expenseName;
     String itemName;
-    int quantity;
     int price;
-    DateTime timePurchased;
+    DateTime created;
+    int account;
+    int subcategory;
 
     ExpenseModel({
         required this.id,
-        required this.totalPrice,
-        required this.user,
-        required this.expenseName,
         required this.itemName,
-        required this.quantity,
         required this.price,
-        required this.timePurchased,
+        required this.created,
+        required this.account,
+        required this.subcategory,
     });
 
     factory ExpenseModel.fromJson(Map<String, dynamic> json) => ExpenseModel(
         id: json["id"],
-        totalPrice: json["total_price"],
-        user: json["user"],
-        expenseName: json["expense_name"],
         itemName: json["item_name"],
-        quantity: json["quantity"],
         price: json["price"],
-        timePurchased: DateTime.parse(json["time_purchased"]),
+        created: DateTime.parse(json["created"]),
+        account: json["account"],
+        subcategory: json["subcategory"],
     );
 
     Map<String, dynamic> toJson() => {
         "id": id,
-        "total_price": totalPrice,
-        "user": user,
-        "expense_name": expenseName,
         "item_name": itemName,
-        "quantity": quantity,
         "price": price,
-        "time_purchased": timePurchased.toIso8601String(),
+        "created": created.toIso8601String(),
+        "account": account,
+        "subcategory": subcategory,
     };
 }

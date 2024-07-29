@@ -80,47 +80,51 @@ class _HomeViewState extends State<HomeView> {
               ),
               const SizedBox(height: 20),
               Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.expenses.length,
-                  itemBuilder: ((context, index) {
-                    var data = controller.expenses[index];
-                    return FadeInDown(
-                      delay: Duration(milliseconds: 500),
-                      curve: Curves.decelerate,
-                      child: Slidable(
-                        endActionPane: ActionPane(
-                            motion: const StretchMotion(),
-                            children: [
-                              SlidableAction(
-                                onPressed: (context) {
-                                  controller.deleteExpense(data.id);
-                                },
-                                icon: Icons.delete,
-                                backgroundColor: Colors.red,
-                                borderRadius: BorderRadius.circular(5),
-                                spacing: 2,
-                              ),
-                              SlidableAction(
-                                onPressed: (context) {
-                                  Get.to(UpdateExpense(id: data.id));
-                                },
-                                icon: Icons.edit,
-                                backgroundColor: Colors.green,
-                                borderRadius: BorderRadius.circular(5),
-                                spacing: 2,
-                              ),
-                            ]),
-                        child: MyListTile(
-                            type: "${data.expenseName}",
-                            title: "${data.itemName}",
-                            price: "${data.price}",
-                            date: data.timePurchased),
+                () => controller.expenses.isEmpty
+                    ? Center(
+                        child: Text(
+                            "No Expenses Added Yet \n Please Add An Expense First"))
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.expenses.length,
+                        itemBuilder: ((context, index) {
+                          var data = controller.expenses[index];
+                          return FadeInDown(
+                            delay: Duration(milliseconds: 500),
+                            curve: Curves.decelerate,
+                            child: Slidable(
+                              endActionPane: ActionPane(
+                                  motion: const StretchMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      onPressed: (context) {
+                                        controller.deleteExpense(data.id);
+                                      },
+                                      icon: Icons.delete,
+                                      backgroundColor: Colors.red,
+                                      borderRadius: BorderRadius.circular(5),
+                                      spacing: 2,
+                                    ),
+                                    SlidableAction(
+                                      onPressed: (context) {
+                                        Get.to(UpdateExpense(id: data.id));
+                                      },
+                                      icon: Icons.edit,
+                                      backgroundColor: Colors.green,
+                                      borderRadius: BorderRadius.circular(5),
+                                      spacing: 2,
+                                    ),
+                                  ]),
+                              child: MyListTile(
+                                  type: "Food",
+                                  title: "${data.itemName}",
+                                  price: "${data.price}",
+                                  date: data.created),
+                            ),
+                          );
+                        }),
                       ),
-                    );
-                  }),
-                ),
               ),
               SizedBox(height: 50),
             ],

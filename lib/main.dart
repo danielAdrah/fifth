@@ -41,9 +41,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/signUp', page: () => const SignUp()),
         GetPage(name: '/bottomBar', page: () => const BottomBarView()),
       ],
-      home: const MainNavBar(),
+      home: const Onboarding(),
 
-      //  Onboarding()
+      //  Onboarding
+      // MainNavBar
     );
   }
 }
