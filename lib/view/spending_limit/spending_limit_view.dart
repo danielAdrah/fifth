@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:animate_do/animate_do.dart';
+import 'package:fifth/controller/limit_controller.dart';
+import 'package:fifth/view/spending_limit/components/update_limit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 import '../../theme.dart';
@@ -16,6 +19,13 @@ class SpendingLimit extends StatefulWidget {
 }
 
 class _SpendingLimitState extends State<SpendingLimit> {
+  final controller = Get.put(LimitController());
+  @override
+  void initState() {
+    super.initState();
+    controller.displayLimits();
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -63,28 +73,73 @@ class _SpendingLimitState extends State<SpendingLimit> {
         ),
       ),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: ListView.builder(
-            physics: BouncingScrollPhysics(),
-            itemCount: 10,
-            itemBuilder: ((context, index) {
-              return FadeInUp(
-                delay: Duration(milliseconds: 150),
+          child: Obx(
+        () => controller.limitsList.isEmpty
+            ? ZoomIn(
+                delay: Duration(milliseconds: 100),
                 curve: Curves.decelerate,
-                child: LimitTile(
-                  limitName: "Name",
-                  totalAmount: "10000",
-                  spendAmount: "4500",
-                  remainedAmount: "5500",
-                  startDate: "2/2/2024",
-                  endDate: "2/2/2026",
+                child: Center(
+                  child: Text("No limits yet \n Please add a limit first",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: TColor.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18)),
                 ),
-              );
-            }),
-          ),
-        ),
-      ),
+              )
+            : Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemCount: controller.limitsList.length,
+                  itemBuilder: ((context, index) {
+                    var lm = controller.limitsList[index];
+                    return Slidable(
+                      endActionPane:
+                          ActionPane(motion: const StretchMotion(), children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            controller.deleteLimit(lm.id);
+                          },
+                          icon: Icons.delete,
+                          backgroundColor: Colors.red,
+                          borderRadius: BorderRadius.circular(5),
+                          spacing: 2,
+                        ),
+                        SlidableAction(
+                          onPressed: (context) {
+                            Get.to(UpdateLimit(id:lm.id));
+                          },
+                          icon: Icons.edit,
+                          backgroundColor: Colors.green,
+                          borderRadius: BorderRadius.circular(5),
+                          spacing: 2,
+                        ),
+                      ]),
+                      child: FadeInUp(
+                        delay: Duration(milliseconds: 150),
+                        curve: Curves.decelerate,
+                        child: InkWell(
+                          onTap: () {
+                            controller.displayLimits();
+                          },
+                          child: LimitTile(
+                            limitName: "${lm.categoryName}",
+                            totalAmount: "${lm.limit}",
+                            spendAmount: "${lm.currentSpending}",
+                            remainedAmount: "${lm.remainingAmount}",
+                            // startDate: "${lm.startDate}",
+                            // endDate: "${lm.endDate}",
+                            startDate: "2-2-2022",
+                            endDate: "2-2-2023",
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+      )),
     );
   }
 }

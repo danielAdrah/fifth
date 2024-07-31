@@ -6,6 +6,14 @@ class EndPoint {
   static String categories = "charts/categories";
   static String subCategories = "charts/subcategories";
   static String createLimit = "charts/create-limit/";
+  static String showLimits = "charts/list-limits";
+  static String deleteLimit(id) {
+    return "charts/delete-limit/$id";
+  }
+  static String updateLimit(id) {
+    return "charts/update-limit/$id";
+  }
+
   static String deleteItem(id) {
     return "charts/delete-item/$id/";
   }

@@ -1,15 +1,18 @@
 // To parse this JSON data, do
 //
-//     final limitModel = limitModelFromJson(jsonString);
+//     final newLimitModel = newLimitModelFromJson(jsonString);
 
 import 'dart:convert';
 
-LimitModel limitModelFromJson(String str) => LimitModel.fromJson(json.decode(str));
+NewLimitModel newLimitModelFromJson(String str) => NewLimitModel.fromJson(json.decode(str));
 
-String limitModelToJson(LimitModel data) => json.encode(data.toJson());
+String newLimitModelToJson(NewLimitModel data) => json.encode(data.toJson());
 
-class LimitModel {
+class NewLimitModel {
     int id;
+    String categoryName;
+    int currentSpending;
+    int remainingAmount;
     int limit;
     DateTime startDate;
     DateTime endDate;
@@ -17,8 +20,11 @@ class LimitModel {
     int user;
     int category;
 
-    LimitModel({
+    NewLimitModel({
         required this.id,
+        required this.categoryName,
+        required this.currentSpending,
+        required this.remainingAmount,
         required this.limit,
         required this.startDate,
         required this.endDate,
@@ -27,8 +33,11 @@ class LimitModel {
         required this.category,
     });
 
-    factory LimitModel.fromJson(Map<String, dynamic> json) => LimitModel(
+    factory NewLimitModel.fromJson(Map<String, dynamic> json) => NewLimitModel(
         id: json["id"],
+        categoryName: json["category_name"],
+        currentSpending: json["current_spending"],
+        remainingAmount: json["remaining_amount"],
         limit: json["limit"],
         startDate: DateTime.parse(json["start_date"]),
         endDate: DateTime.parse(json["end_date"]),
@@ -39,6 +48,9 @@ class LimitModel {
 
     Map<String, dynamic> toJson() => {
         "id": id,
+        "category_name": categoryName,
+        "current_spending": currentSpending,
+        "remaining_amount": remainingAmount,
         "limit": limit,
         "start_date": "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
         "end_date": "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",

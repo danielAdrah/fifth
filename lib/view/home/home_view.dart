@@ -23,6 +23,12 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final controller = Get.put(ExpenseController());
   @override
+  void initState() {
+    controller.displayExpense();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
     return Scaffold(
@@ -83,7 +89,11 @@ class _HomeViewState extends State<HomeView> {
                 () => controller.expenses.isEmpty
                     ? Center(
                         child: Text(
-                            "No Expenses Added Yet \n Please Add An Expense First"))
+                        "No Expenses Added Yet \n Please Add An Expense First",
+                        style: TextStyle(
+                            color: TColor.white, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ))
                     : ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -117,7 +127,8 @@ class _HomeViewState extends State<HomeView> {
                                     ),
                                   ]),
                               child: MyListTile(
-                                  type: "Food",
+                                  img: "${data.categoryIcon}",
+                                  type: "${data.subcategoryName ?? 'Unkown'}",
                                   title: "${data.itemName}",
                                   price: "${data.price}",
                                   date: data.created),

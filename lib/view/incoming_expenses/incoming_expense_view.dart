@@ -61,6 +61,7 @@ class _IcomingExpensesState extends State<IcomingExpenses> {
                                 ),
                               ]),
                           child: MyListTile(
+                              img: "",
                               type: "Food",
                               title: "Chicken",
                               price: "\$950",

@@ -16,25 +16,19 @@ import '../../../theme.dart';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
 
-class CreateLimit extends StatefulWidget {
-  const CreateLimit({super.key});
+class UpdateLimit extends StatefulWidget {
+  UpdateLimit({super.key, required this.id});
+  int id;
 
   @override
-  State<CreateLimit> createState() => _CreateGoalState();
+  State<UpdateLimit> createState() => _UpdateLimitState();
 }
 
-class _CreateGoalState extends State<CreateLimit> {
+class _UpdateLimitState extends State<UpdateLimit> {
   // final TextEditingController limitName = TextEditingController();
   final controller = Get.put(LimitController());
   final controller1 = Get.put(ExpenseController());
   void clearField() {}
-  List<String> items = [
-    "Food",
-    "Drinks",
-    "Entertainment",
-    "Education",
-    "Other"
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +60,7 @@ class _CreateGoalState extends State<CreateLimit> {
                   delay: Duration(milliseconds: 100),
                   curve: Curves.decelerate,
                   child: Text(
-                    " Create Limit  ",
+                    " Update Limit  ",
                     style: TextStyle(
                         color: TColor.white,
                         fontSize: 20,
@@ -99,149 +93,6 @@ class _CreateGoalState extends State<CreateLimit> {
                     child: Column(
                       children: [
                         const SizedBox(height: 20),
-                        // Padding(
-                        //   padding: EdgeInsets.all(media.width * 0.06),
-                        //   child: DropdownSearch<String>(
-                        //     onChanged: (value) {
-                        //       // controller.item = value;
-                        //     },
-                        //     popupProps: PopupProps.menu(
-                        //       itemBuilder: (context, item, isSelected) {
-                        //         IconData icon;
-                        //         switch (item) {
-                        //           case "Food":
-                        //             icon = Icons.fastfood;
-                        //             break;
-                        //           case "Drinks":
-                        //             icon = Icons.local_cafe;
-                        //             break;
-                        //           case "Entertainment":
-                        //             icon = Icons.movie;
-                        //             break;
-                        //           case "Education":
-                        //             icon = Icons.school;
-                        //             break;
-                        //           case "Other":
-                        //             icon = Icons.more_horiz;
-                        //             break;
-                        //           default:
-                        //             icon = Icons.help;
-                        //         }
-                        //         return Container(
-                        //           padding: const EdgeInsets.all(5),
-                        //           decoration: BoxDecoration(
-                        //             color: isSelected
-                        //                 ? TColor.gray50
-                        //                 : Colors.transparent,
-                        //           ),
-                        //           child: ListTile(
-                        //             title: Text(
-                        //               item,
-                        //               style: TextStyle(color: TColor.white),
-                        //             ),
-                        //             leading: Icon(
-                        //               icon,
-                        //               color: TColor.white,
-                        //             ),
-                        //           ),
-                        //         );
-                        //       },
-                        //       menuProps: MenuProps(
-                        //         backgroundColor: TColor.gray50,
-                        //         borderRadius: BorderRadius.circular(25),
-                        //       ),
-                        //       showSelectedItems: true,
-                        //     ),
-                        //     items: items,
-                        //     dropdownButtonProps: DropdownButtonProps(
-                        //       color: TColor.border,
-                        //     ),
-                        //     dropdownDecoratorProps: DropDownDecoratorProps(
-                        //       baseStyle: TextStyle(color: TColor.white),
-                        //       dropdownSearchDecoration: InputDecoration(
-                        //         label: Text(
-                        //           "Choose A Category",
-                        //           style: TextStyle(color: TColor.border),
-                        //         ),
-                        //         border: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.circular(18)),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // Padding(
-                        //   padding: EdgeInsets.all(media.width * 0.06),
-                        //   child: DropdownSearch<String>(
-                        //     onChanged: (value) {
-                        //       // controller.item = value;
-                        //     },
-                        //     popupProps: PopupProps.menu(
-                        //       itemBuilder: (context, item, isSelected) {
-                        //         IconData icon;
-                        //         switch (item) {
-                        //           case "Food":
-                        //             icon = Icons.fastfood;
-                        //             break;
-                        //           case "Drinks":
-                        //             icon = Icons.local_cafe;
-                        //             break;
-                        //           case "Entertainment":
-                        //             icon = Icons.movie;
-                        //             break;
-                        //           case "Education":
-                        //             icon = Icons.school;
-                        //             break;
-                        //           case "Other":
-                        //             icon = Icons.more_horiz;
-                        //             break;
-                        //           default:
-                        //             icon = Icons.help;
-                        //         }
-                        //         return Container(
-                        //           padding: const EdgeInsets.all(5),
-                        //           decoration: BoxDecoration(
-                        //             color: isSelected
-                        //                 ? TColor.gray50
-                        //                 : Colors.transparent,
-                        //           ),
-                        //           child: ListTile(
-                        //             title: Text(
-                        //               item,
-                        //               style: TextStyle(color: TColor.white),
-                        //             ),
-                        //             leading: Icon(
-                        //               icon,
-                        //               color: TColor.white,
-                        //             ),
-                        //           ),
-                        //         );
-                        //       },
-                        //       menuProps: MenuProps(
-                        //         backgroundColor: TColor.gray50,
-                        //         borderRadius: BorderRadius.circular(25),
-                        //       ),
-                        //       showSelectedItems: true,
-                        //     ),
-                        //     items: [
-                        //       "Syrian Bound",
-                        //       "Dollar",
-                        //     ],
-                        //     dropdownButtonProps: DropdownButtonProps(
-                        //       color: TColor.border,
-                        //     ),
-                        //     dropdownDecoratorProps: DropDownDecoratorProps(
-                        //       baseStyle: TextStyle(color: TColor.white),
-                        //       dropdownSearchDecoration: InputDecoration(
-                        //         label: Text(
-                        //           "Choose A Currency",
-                        //           style: TextStyle(color: TColor.border),
-                        //         ),
-                        //         border: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.circular(18)),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         FutureBuilder<List<CategoryModel>>(
                           future: controller1.fetchCategory(),
                           builder: (BuildContext context,
@@ -264,10 +115,14 @@ class _CreateGoalState extends State<CreateLimit> {
                                   borderRadius: BorderRadius.circular(25),
 
                                   hint: Obx(
-                                    () => controller
-                                            .limitCategory.value.isNotEmpty
-                                        ? Text(controller.limitCategoryMap[
-                              controller.limitCategory.value] ?? "Select a category",
+                                    () => controller.updatedLimitCategory.value
+                                            .isNotEmpty
+                                        ? Text(
+                                            controller.limitCategoryMap[
+                                                    controller
+                                                        .updatedLimitCategory
+                                                        .value] ??
+                                                "Select a category",
                                             style: TextStyle(
                                                 color: TColor.white
                                                     .withOpacity(0.4)))
@@ -299,7 +154,8 @@ class _CreateGoalState extends State<CreateLimit> {
                                   ),
                                   onChanged: (String? val) {
                                     if (val != null) {
-                                      controller.limitCategory.value = val;
+                                      controller.updatedLimitCategory.value =
+                                          val;
                                       // controller.fetchSubcategory();
                                     }
                                   }, //o Implement your logic here when a selection changes
@@ -312,7 +168,7 @@ class _CreateGoalState extends State<CreateLimit> {
                           padding: EdgeInsets.all(media.width * 0.06),
                           child: RoundedTextField(
                             title: "The Amount",
-                            controller: controller.amount,
+                            controller: controller.newamount,
                             icon: Icon(Icons.near_me),
                             onIconPressed: () {},
                             keyboardType: TextInputType.number,
@@ -323,7 +179,7 @@ class _CreateGoalState extends State<CreateLimit> {
                           child: DateTextField(
                             onTap: showDate,
                             title: "Start Date",
-                            controller: controller.startDate,
+                            controller: controller.newstartDate,
                             keyboardType: TextInputType.number,
                             icon: Icon(
                               Icons.date_range,
@@ -340,7 +196,7 @@ class _CreateGoalState extends State<CreateLimit> {
                           child: DateTextField(
                             onTap: showDate2,
                             title: "End Date",
-                            controller: controller.endDate,
+                            controller: controller.newendDate,
                             keyboardType: TextInputType.number,
                             icon: Icon(
                               Icons.date_range,
@@ -353,9 +209,9 @@ class _CreateGoalState extends State<CreateLimit> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: PrimaryButton(
-                              title: "Add",
+                              title: "Update",
                               onPressed: () {
-                                controller.createLimit();
+                                controller.updateLimit(widget.id);
                                 clearField();
                               }),
                         )
@@ -380,7 +236,7 @@ class _CreateGoalState extends State<CreateLimit> {
       barrierColor: TColor.gray30,
     );
     if (picked != null) {
-      controller.startDate.text = picked.toString().substring(0, 10);
+      controller.newstartDate.text = picked.toString().substring(0, 10);
     }
   }
 
@@ -393,7 +249,7 @@ class _CreateGoalState extends State<CreateLimit> {
       barrierColor: TColor.gray30,
     );
     if (picked != null) {
-      controller.endDate.text = picked.toString().substring(0, 10);
+      controller.newendDate.text = picked.toString().substring(0, 10);
     }
   }
 }

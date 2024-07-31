@@ -9,13 +9,14 @@ class MyListTile extends StatefulWidget {
   final String title;
   final String price;
   final DateTime date;
-
+  final String img;
   const MyListTile({
     super.key,
     required this.type,
     required this.title,
     required this.price,
     required this.date,
+    required this.img,
   });
 
   @override
@@ -26,27 +27,6 @@ class _MyListTileState extends State<MyListTile> {
   final _controller = Get.put(ExpenseController());
   @override
   Widget build(BuildContext context) {
-    IconData iconData;
-    switch (widget.type) {
-      case "Food":
-        iconData = Icons.fastfood;
-        break;
-      case "Drinks":
-        iconData = Icons.local_cafe;
-        break;
-      case "Entertainment":
-        iconData = Icons.movie;
-        break;
-      case "Education":
-        iconData = Icons.school;
-        break;
-      case "Other":
-        iconData = Icons.more_horiz;
-        break;
-      default:
-        iconData = Icons.help_outline;
-        break;
-    }
     return InkWell(
       onTap: () {},
       child: Padding(
@@ -60,9 +40,9 @@ class _MyListTileState extends State<MyListTile> {
             ),
           ),
           child: ListTile(
-            leading: Icon(
-              iconData,
-              color: TColor.white.withOpacity(0.6),
+            leading: Image(
+              image: NetworkImage(widget.img),
+              fit: BoxFit.fill,
             ),
             title: Text(widget.title),
             subtitle: Text(

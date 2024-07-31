@@ -103,134 +103,93 @@ class _UpdateExpenseState extends State<UpdateExpense> {
                     child: Column(
                       children: [
                         const SizedBox(height: 20),
-                        // Padding(
-                        //   padding: EdgeInsets.all(media.width * 0.06),
-                        //   child: DropdownSearch<String>(
-                        //     onChanged: (value) {
-                        //       controller.newItem = value;
-                        //     },
-                        //     popupProps: PopupProps.menu(
-                        //       itemBuilder: (context, item, isSelected) {
-                        //         IconData icon;
-                        //         switch (item) {
-                        //           case "Food":
-                        //             icon = Icons.fastfood;
-                        //             break;
-                        //           case "Drinks":
-                        //             icon = Icons.local_cafe;
-                        //             break;
-                        //           case "Entertainment":
-                        //             icon = Icons.movie;
-                        //             break;
-                        //           case "Education":
-                        //             icon = Icons.school;
-                        //             break;
-                        //           case "Other":
-                        //             icon = Icons.more_horiz;
-                        //             break;
-                        //           default:
-                        //             icon = Icons.help;
-                        //         }
-                        //         return Container(
-                        //           padding: const EdgeInsets.all(5),
-                        //           decoration: BoxDecoration(
-                        //             color: isSelected
-                        //                 ? TColor.gray50
-                        //                 : Colors.transparent,
-                        //           ),
-                        //           child: ListTile(
-                        //             title: Text(
-                        //               item,
-                        //               style: TextStyle(color: TColor.white),
-                        //             ),
-                        //             leading: Icon(
-                        //               icon,
-                        //               color: TColor.white,
-                        //             ),
-                        //           ),
-                        //         );
-                        //       },
-                        //       menuProps: MenuProps(
-                        //         backgroundColor: TColor.gray50,
-                        //         borderRadius: BorderRadius.circular(25),
-                        //       ),
-                        //       showSelectedItems: true,
-                        //     ),
-                        //     items: items,
-                        //     dropdownButtonProps: DropdownButtonProps(
-                        //       color: TColor.border,
-                        //     ),
-                        //     dropdownDecoratorProps: DropDownDecoratorProps(
-                        //       baseStyle: TextStyle(color: TColor.white),
-                        //       dropdownSearchDecoration: InputDecoration(
-                        //         label: Text(
-                        //           "Choose A Type",
-                        //           style: TextStyle(color: TColor.border),
-                        //         ),
-                        //         border: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.circular(18)),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        categoryDropdown(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Category",
+                                style: TextStyle(
+                                    color: TColor.white.withOpacity(0.4),
+                                    fontSize: 12),
+                              ),
+                            ),
+                            categoryDropdown(),
+                          ],
+                        ),
                         SizedBox(height: 20),
-                        Obx(() => controller.subCategories.isEmpty
-                            ? Text(
-                                "Please Wait ...",
-                                style: TextStyle(color: TColor.white),
-                              )
-                            : Container(
-                                decoration: BoxDecoration(
-                                    color: TColor.gray60.withOpacity(0.8),
-                                    borderRadius: BorderRadius.circular(15)),
-                                width: 320,
-                                child: DropdownButton(
-                                    hint: Obx(() => controller
-                                            .updatedSubCategoryId
-                                            .value
-                                            .isNotEmpty
-                                        ? Text(
-                                            controller.subCategoryTextMap[
-                                                    controller
-                                                        .updatedSubCategoryId
-                                                        .value] ??
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "SubCategory",
+                                style: TextStyle(
+                                    color: TColor.white.withOpacity(0.4),
+                                    fontSize: 12),
+                              ),
+                            ),
+                            Obx(() => controller.subCategories.isEmpty
+                                ? Text(
+                                    "Please Wait ...",
+                                    style: TextStyle(color: TColor.white),
+                                  )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                        color: TColor.gray60.withOpacity(0.8),
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    width: 320,
+                                    child: DropdownButton(
+                                        hint: Obx(() => controller
+                                                .updatedSubCategoryId
+                                                .value
+                                                .isNotEmpty
+                                            ? Text(
+                                                controller.subCategoryTextMap[
+                                                        controller
+                                                            .updatedSubCategoryId
+                                                            .value] ??
+                                                    "Select a subcategory",
+                                                style: TextStyle(
+                                                    color: TColor.white
+                                                        .withOpacity(0.4)),
+                                              )
+                                            : Text(
                                                 "Select a subcategory",
-                                            style: TextStyle(
-                                                color: TColor.white
-                                                    .withOpacity(0.4)),
-                                          )
-                                        : Text(
-                                            "Select a subcategory",
-                                            style: TextStyle(
-                                                color: TColor.white
-                                                    .withOpacity(0.4)),
-                                          )),
-                                    items:
-                                        controller.subCategories.value.map((e) {
-                                      return DropdownMenuItem(
-                                        value: e.id.toString(),
-                                        child: Text(e.name,
-                                            style:
-                                                TextStyle(color: TColor.white)),
-                                      );
-                                    }).toList(),
-                                    underline: Text(
-                                      "",
-                                      style: TextStyle(color: TColor.white),
-                                    ),
-                                    isExpanded: true,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 12),
-                                    onChanged: (String? val) {
-                                      if (val != null) {
-                                        controller.updatedSubCategoryId.value =
-                                            val;
-                                      }
-                                    }),
-                              )),
+                                                style: TextStyle(
+                                                    color: TColor.white
+                                                        .withOpacity(0.4)),
+                                              )),
+                                        items: controller.subCategories.value
+                                            .map((e) {
+                                          return DropdownMenuItem(
+                                            value: e.id.toString(),
+                                            child: Text(e.name,
+                                                style: TextStyle(
+                                                    color: TColor.white)),
+                                          );
+                                        }).toList(),
+                                        underline: Text(
+                                          "",
+                                          style: TextStyle(color: TColor.white),
+                                        ),
+                                        isExpanded: true,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 12),
+                                        onChanged: (String? val) {
+                                          if (val != null) {
+                                            controller.updatedSubCategoryId
+                                                .value = val;
+                                          }
+                                        }),
+                                  )),
+                          ],
+                        ),
                         Padding(
-                          padding: EdgeInsets.all(media.width * 0.06),
+                          padding: EdgeInsets.all(media.width * 0.04),
                           child: RoundedTextField(
                             title: "New Name",
                             controller: controller.newNameController,
@@ -239,7 +198,7 @@ class _UpdateExpenseState extends State<UpdateExpense> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(media.width * 0.06),
+                          padding: EdgeInsets.all(media.width * 0.04),
                           child: RoundedTextField(
                             title: "New Quantity",
                             controller: controller.newQuantityController,
@@ -249,7 +208,7 @@ class _UpdateExpenseState extends State<UpdateExpense> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(media.width * 0.06),
+                          padding: EdgeInsets.all(media.width * 0.04),
                           child: RoundedTextField(
                             title: "New Price",
                             controller: controller.newPriceController,
@@ -258,15 +217,14 @@ class _UpdateExpenseState extends State<UpdateExpense> {
                             onIconPressed: () {},
                           ),
                         ),
-                        const SizedBox(height: 80),
+                        const SizedBox(height: 50),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: PrimaryButton(
-                              title: "Add",
+                              title: "Update",
                               onPressed: () {
                                 controller.updateExpense(widget.id);
                                 clearField();
-                                Get.back();
                               }),
                         )
                       ],
