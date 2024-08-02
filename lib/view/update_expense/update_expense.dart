@@ -154,8 +154,7 @@ class _UpdateExpenseState extends State<UpdateExpense> {
                                                             .value] ??
                                                     "Select a subcategory",
                                                 style: TextStyle(
-                                                    color: TColor.white
-                                                        .withOpacity(0.4)),
+                                                    color: TColor.white),
                                               )
                                             : Text(
                                                 "Select a subcategory",

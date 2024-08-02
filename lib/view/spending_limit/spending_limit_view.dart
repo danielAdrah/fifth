@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_string_interpolations
 
 import 'package:animate_do/animate_do.dart';
 import 'package:fifth/controller/limit_controller.dart';
@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 import '../../theme.dart';
 import 'components/add_limit.dart';
+import 'components/limit_detail.dart';
 import 'components/limit_tile.dart';
 
 class SpendingLimit extends StatefulWidget {
@@ -108,7 +109,7 @@ class _SpendingLimitState extends State<SpendingLimit> {
                         ),
                         SlidableAction(
                           onPressed: (context) {
-                            Get.to(UpdateLimit(id:lm.id));
+                            Get.to(UpdateLimit(id: lm.id));
                           },
                           icon: Icons.edit,
                           backgroundColor: Colors.green,
@@ -121,17 +122,16 @@ class _SpendingLimitState extends State<SpendingLimit> {
                         curve: Curves.decelerate,
                         child: InkWell(
                           onTap: () {
-                            controller.displayLimits();
+                            Get.to(LimitDetail());
+                            controller.fetchLimit(lm.id);
                           },
                           child: LimitTile(
                             limitName: "${lm.categoryName}",
                             totalAmount: "${lm.limit}",
                             spendAmount: "${lm.currentSpending}",
                             remainedAmount: "${lm.remainingAmount}",
-                            // startDate: "${lm.startDate}",
-                            // endDate: "${lm.endDate}",
-                            startDate: "2-2-2022",
-                            endDate: "2-2-2023",
+                            progressValue:
+                                (lm.currentSpending / lm.limit) * 100,
                           ),
                         ),
                       ),

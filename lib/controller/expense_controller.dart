@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../common/success_alert.dart';
 import '../model/categories_model.dart';
 import '../model/subcategory_model.dart';
 
@@ -41,9 +42,9 @@ class ExpenseController extends GetxController {
 
     // Add more mappings as needed
   };
+  RxBool created = false.obs;
+  bool done = false;
   String? newItem;
-  RxBool isAdded = false.obs;
-  bool isDone = false;
   String? selectedCategory;
   var selectedCategoryId = ''.obs;
   var subCategoryId = "".obs;
@@ -151,10 +152,11 @@ class ExpenseController extends GetxController {
             // ApiKeys.subcategory: subCategoryId.value,
           });
       print("the added expense is ${response.data}");
-      isAdded.value = true;
-      isDone = true;
+      userState = SuccessCreated();
       update();
-
+      created.value = true;
+      done = true;
+      update();
       await displayExpense();
     } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
@@ -178,11 +180,11 @@ class ExpenseController extends GetxController {
           // ApiKeys.itemName: newNameController.text,
           // ApiKeys.quantity: newQuantityController.text,
           // ApiKeys.price: newPriceController.text,
-          ApiKeys.account :1,
-          ApiKeys.itemName :newNameController.text,
-          ApiKeys.quantity : newQuantityController.text,
-          ApiKeys.price:newPriceController.text,
-          ApiKeys.subcategory :updatedSubCategoryId.value,
+          ApiKeys.account: 1,
+          ApiKeys.itemName: newNameController.text,
+          ApiKeys.quantity: newQuantityController.text,
+          ApiKeys.price: newPriceController.text,
+          ApiKeys.subcategory: updatedSubCategoryId.value,
         },
       );
       print("the updated expense is ${response.data}");

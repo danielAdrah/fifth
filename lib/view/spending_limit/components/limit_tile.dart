@@ -10,16 +10,15 @@ class LimitTile extends StatelessWidget {
   final String totalAmount;
   final String spendAmount;
   final String remainedAmount;
-  final String startDate;
-  final String endDate;
+  
+  final double progressValue;
   LimitTile({
     super.key,
     required this.limitName,
     required this.totalAmount,
     required this.spendAmount,
     required this.remainedAmount,
-    required this.startDate,
-    required this.endDate,
+      required this.progressValue,
   });
 
   @override
@@ -112,10 +111,11 @@ class LimitTile extends StatelessWidget {
                     TColor.secondaryG50,
                   ),
                   minHeight: 3,
-                  value: 100,
+                  value:  progressValue,
                 ),
                 const SizedBox(
                   height: 5,
+                  
                 ),
               ],
             ),

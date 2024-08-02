@@ -31,7 +31,7 @@ FutureBuilder<List<CategoryModel>> categoryDropdown() {
             hint: Obx(
               () => controller.selectedCategoryId.value.isNotEmpty
                   ? Text(controller.selectedCategoryId.value,
-                      style: TextStyle(color: TColor.white.withOpacity(0.4)))
+                      style: TextStyle(color: TColor.white))
                   : Text("Select a category",
                       style: TextStyle(color: TColor.white.withOpacity(0.4))),
             ),
@@ -85,7 +85,7 @@ Obx subCategoryDropdown() {
                       controller.subCategoryTextMap[
                               controller.subCategoryId.value] ??
                           "Select a subcategory",
-                      style: TextStyle(color: TColor.white.withOpacity(0.4)),
+                      style: TextStyle(color: TColor.white),
                     )
                   : Text(
                       "Select a subcategory",
@@ -97,8 +97,7 @@ Obx subCategoryDropdown() {
                   child: Text(e.name, style: TextStyle(color: TColor.white)),
                 );
               }).toList(),
-              
-               underline: Text(
+              underline: Text(
                 "",
                 style: TextStyle(color: TColor.white),
               ),

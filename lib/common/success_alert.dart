@@ -11,15 +11,12 @@ import '../theme.dart';
 class SuccessAlert extends StatelessWidget {
   const SuccessAlert({
     super.key,
-    required this.width,
-    required this.height,
   });
-
-  final double width;
-  final double height;
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return AlertDialog(
       elevation: 5,
       shadowColor: TColor.border,
@@ -88,7 +85,7 @@ class SuccessAlert extends StatelessWidget {
                   shadowDegree: ShadowDegree.dark,
                 ),
               )
-    
+
               // Padding(
               //   padding: const EdgeInsets.all(8.0),
               //   child: PrimaryButton(title: "Ok", onPressed: () {}),

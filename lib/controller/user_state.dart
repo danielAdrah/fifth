@@ -1,5 +1,4 @@
-import '../model/user_info_model.dart';
-
+ 
 class UserState {}
 
 final class UserInitial extends UserState {}
@@ -25,9 +24,7 @@ final class SignUpFailure extends UserState {
 }
 
 final class GetUserSuccess extends UserState {
-  final UserInfoModel userInfo;
-
-  GetUserSuccess({required this.userInfo});
+  
 }
 final class GetUserLoading extends UserState {}
 

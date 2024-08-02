@@ -1,28 +1,42 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../common/primary_button.dart';
 import '../../../common/rounded_textField.dart';
+import '../../../controller/limit_controller.dart';
 import '../../../theme.dart';
+import '../../goals/component/goal_item.dart';
 
-class GoalDetail extends StatefulWidget {
-  const GoalDetail({super.key});
+class LimitDetail extends StatefulWidget {
+  const LimitDetail({super.key});
 
   @override
-  State<GoalDetail> createState() => _GoalDetailState();
+  State<LimitDetail> createState() => _LimitDetailState();
 }
 
-class _GoalDetailState extends State<GoalDetail> {
-  final TextEditingController balance = TextEditingController();
+class _LimitDetailState extends State<LimitDetail> {
+  final controller = Get.put(LimitController());
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    var media = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        title: FadeInDown(
+          delay: Duration(milliseconds: 150),
+          curve: Curves.decelerate,
+          child: Text("Limit Detail",
+              style: TextStyle(
+                  color: TColor.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold)),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         leading: FadeInLeft(
           delay: Duration(milliseconds: 100),
@@ -39,117 +53,109 @@ class _GoalDetailState extends State<GoalDetail> {
       ),
       backgroundColor: TColor.gray,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: FadeInDown(
-            delay: Duration(milliseconds: 100),
-            curve: Curves.decelerate,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Padding(
-                //   padding: EdgeInsets.symmetric(
-                //       horizontal: width * 0.3, vertical: height * 0.1),
-                //   child: SizedBox(
-                //       height: height * 0.05,
-                //       width: width * 0.9,
-                //       child: CustomPaint(
-                //         painter: CustomArcPainter180(
-                //           arcs: [
-                //             ArcModel(color: TColor.secondaryG, value: 30),
-                //             ArcModel(color: TColor.secondary, value: 50),
-                //             ArcModel(color: TColor.primary10, value: 70),
-                //           ],
-                //         ),
-                //       )),
-                // ),
-              
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: Divider(
-                      color: TColor.gray50,
-                      indent: 20,
-                      endIndent: 20,
-                      thickness: 1),
-                ),
-                GoalItem(
-                  width: width,
-                  title: "The Goal",
-                  value: "New Car",
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: Divider(
-                      color: TColor.gray50,
-                      indent: 20,
-                      endIndent: 20,
-                      thickness: 1),
-                ),
-                GoalItem(
-                  width: width,
-                  title: "The Budget",
-                  value: " \$95000",
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: Divider(
-                      color: TColor.gray50,
-                      indent: 20,
-                      endIndent: 20,
-                      thickness: 1),
-                ),
-                GoalItem(
-                  width: width,
-                  title: " Current Balance",
-                  value: " \$50000",
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: Divider(
-                      color: TColor.gray50,
-                      indent: 20,
-                      endIndent: 20,
-                      thickness: 1),
-                ),
-                GoalItem(
-                  width: width,
-                  title: "Dead Line",
-                  value: "2/2/2024",
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 18),
-                  child: Divider(
-                      color: TColor.gray50,
-                      indent: 20,
-                      endIndent: 20,
-                      thickness: 1),
-                ),
-                SizedBox(height: 15),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.2),
-                  child: RoundedTextField(
-                    titleAlign: TextAlign.center,
-                    icon: Icon(Icons.wysiwyg_rounded),
-                    title: 'Add To Goal Balance',
-                    onIconPressed: () {},
-                    controller: balance,
-                    keyboardType: TextInputType.number,
-                    obscureText: false,
+        child: Obx(() => SingleChildScrollView(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    right: media.width * 0.055,
+                    left: media.width * 0.055,
+                    top: media.width * 0.05),
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                  height: 600,
+                  decoration: BoxDecoration(
+                      color: TColor.gray70.withOpacity(0.8),
+                      border: Border.all(color: TColor.border.withOpacity(0.3)),
+                      borderRadius: BorderRadius.circular(25)),
+                  child: FadeInDown(
+                    delay: Duration(milliseconds: 150),
+                    curve: Curves.decelerate,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 70),
+                        GoalItem(
+                          width: width,
+                          title: "The limit Category",
+                          value: "${controller.oneLimit.value.categoryName}",
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          child: Divider(
+                              color: TColor.gray50,
+                              indent: 20,
+                              endIndent: 20,
+                              thickness: 1),
+                        ),
+                        GoalItem(
+                          width: width,
+                          title: "The limit balance",
+                          value: " \$${controller.oneLimit.value.limit}",
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          child: Divider(
+                              color: TColor.gray50,
+                              indent: 20,
+                              endIndent: 20,
+                              thickness: 1),
+                        ),
+                        GoalItem(
+                          width: width,
+                          title: " spending amount",
+                          value: " \$${controller.oneLimit.value.currentSpending}",
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          child: Divider(
+                              color: TColor.gray50,
+                              indent: 20,
+                              endIndent: 20,
+                              thickness: 1),
+                        ),
+                        GoalItem(
+                          width: width,
+                          title: "Remaining amount",
+                          value: "\$${controller.oneLimit.value.remainingAmount}",
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          child: Divider(
+                              color: TColor.gray50,
+                              indent: 20,
+                              endIndent: 20,
+                              thickness: 1),
+                        ),
+                        GoalItem(
+                          width: width,
+                          title: "Start date",
+                          value:
+                              "${controller.oneLimit.value.startDate.toString().substring(0, 11)}",
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          child: Divider(
+                              color: TColor.gray50,
+                              indent: 20,
+                              endIndent: 20,
+                              thickness: 1),
+                        ),
+                        GoalItem(
+                          width: width,
+                          title: "End date",
+                          value:
+                              "${controller.oneLimit.value.endDate.toString().substring(0, 11)}",
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(height: 30),
-                ZoomIn(
-                  delay: Duration(milliseconds: 100),
-                  curve: Curves.decelerate,
-                  child: PrimaryButton(
-                    onPressed: () {},
-                    title: "Add To Balance",
-                  ),
-                ),
-                SizedBox(height: 20),
-              ],
-            ),
+              ),
+            ],
           ),
-        ),
+        ),)
       ),
     );
   }

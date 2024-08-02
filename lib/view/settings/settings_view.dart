@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:fifth/model/user_info_model.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:get/get.dart';
 import '../../common/nav_bar.dart';

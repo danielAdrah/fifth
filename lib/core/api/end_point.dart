@@ -10,6 +10,7 @@ class EndPoint {
   static String deleteLimit(id) {
     return "charts/delete-limit/$id";
   }
+
   static String updateLimit(id) {
     return "charts/update-limit/$id";
   }
@@ -20,6 +21,10 @@ class EndPoint {
 
   static String updateExpense(id) {
     return "charts/update-item/$id/";
+  }
+
+  static String fetchLimit(id) {
+    return "charts/get-limit/$id";
   }
 
   static String listItems = "charts/create-item/";

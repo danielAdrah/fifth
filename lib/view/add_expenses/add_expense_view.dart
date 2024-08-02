@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 import '../../common/custom_dialog.dart';
+import '../../common/fali_alert.dart';
+import '../../common/success_alert.dart';
 import '../../controller/expense_controller.dart';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
@@ -45,6 +47,9 @@ class _AddExpenseViewState extends State<AddExpenseView> {
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: TColor.gray.withOpacity(0.9),
       body: SafeArea(
@@ -172,7 +177,10 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                               title: "Add",
                               onPressed: () {
                                 controller.createExpense();
-                                // controller.fetchSubcategory();
+                                if (controller.done) {
+                                  _showawesome(context);
+                                }
+
                                 clearField();
                               }),
                         )
@@ -187,4 +195,19 @@ class _AddExpenseViewState extends State<AddExpenseView> {
       ),
     );
   }
+}
+
+_showawesome(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible:
+        true, // Set to false if you want the dialog to not close when tapping outside
+    builder: (BuildContext context) {
+      return ZoomIn(
+        delay: Duration(milliseconds: 150),
+        curve: Curves.fastLinearToSlowEaseIn,
+        child: SuccessAlert(),
+      );
+    },
+  );
 }

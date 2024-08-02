@@ -28,7 +28,11 @@ class _UpdateLimitState extends State<UpdateLimit> {
   // final TextEditingController limitName = TextEditingController();
   final controller = Get.put(LimitController());
   final controller1 = Get.put(ExpenseController());
-  void clearField() {}
+  void clearField() {
+    controller.newamount.clear();
+    controller.newstartDate.clear();
+    controller.newendDate.clear();
+  }
 
   @override
   Widget build(BuildContext context) {

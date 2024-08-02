@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../model/individual_limit_model.dart';
 import '../model/limits_model.dart';
 
 class LimitController extends GetxController {
@@ -21,7 +22,7 @@ class LimitController extends GetxController {
   final TextEditingController newamount = TextEditingController();
   final TextEditingController newstartDate = TextEditingController();
   final TextEditingController newendDate = TextEditingController();
-
+  //======================================
   Map<String, String> limitCategoryMap = {
     '1': 'food',
     '2': 'transport',
@@ -35,8 +36,20 @@ class LimitController extends GetxController {
   };
   var limitCategory = ''.obs;
   var updatedLimitCategory = ''.obs;
-//========================================
   RxList<LimitsModel> limitsList = <LimitsModel>[].obs;
+  var oneLimit = IndividualLimitModel(
+          category: 1,
+          categoryName: "",
+          currency: "",
+          currentSpending: 0,
+          endDate: DateTime.now(),
+          id: 0,
+          limit: 0,
+          remainingAmount: 0,
+          startDate: DateTime.now(),
+          user: 0)
+      .obs;
+
 //========================================
   Future<List<LimitsModel>> displayLimits() async {
     var token = storage.read('accessToken');
@@ -118,7 +131,7 @@ class LimitController extends GetxController {
 //=======================================
   updateLimit(int id) async {
     var token = storage.read("accessToken");
-    var id = storage.read("userId");
+    var userId = storage.read("userId");
     try {
       var response = await dio.put(
         EndPoint.updateLimit(id),
@@ -128,7 +141,7 @@ class LimitController extends GetxController {
           },
         ),
         data: {
-          ApiKeys.user: id,
+          ApiKeys.user: userId,
           ApiKeys.startDate: "2024-1-2",
           ApiKeys.endDate: "2024-1-4",
           ApiKeys.limit: "500",
@@ -139,37 +152,31 @@ class LimitController extends GetxController {
       print("the updated limit is ${response.data}");
       await displayLimits();
     } on DioException catch (e) {
+      print("Error fetching uodated expenses: ${e.message}");
+      throw Exception('Failed to load expenses: ${e.message}');
+    }
+  }
+
+  //=======================================
+  Future<IndividualLimitModel> fetchLimit(int id) async {
+    var token = storage.read("accessToken");
+    try {
+      var response = await dio.get(
+        EndPoint.fetchLimit(id),
+        options: Options(
+          headers: {
+            ApiKeys.auth: "Bearer $token",
+          },
+        ),
+      );
+      print("single limit issssssss ${response.data}");
+      IndividualLimitModel limit = IndividualLimitModel.fromJson(response.data);
+      print("after parsing in one limit ${limit.categoryName}");
+      oneLimit.value = limit;
+      return limit;
+    } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }
   }
 }
-
-// FutureBuilder<List<CategoryModel>>(
-//   future: controller.fetchCategory(),
-//   builder: (BuildContext context, AsyncSnapshot<List<CategoryModel>> snapshot) {
-//     if (snapshot.connectionState == ConnectionState.waiting) {
-//       return CircularProgressIndicator(); // Show a loading indicator while waiting for data
-//     } else if (snapshot.hasError) {
-//       return Text('Error: ${snapshot.error}'); // Handle any errors
-//     } else {
-//       return DropdownButton<String>(
-//         isExpanded: true, // Allow the dropdown button to take more space
-//         hint: Obx(() => controller.selectedCategoryId.value.isNotEmpty
-//             ? Text(controller.categoryTextMap[controller.selectedCategoryId.value] ?? "Select a category") // Display the mapped text or default hint
-//             : Text("Select a category")), // Default hint text
-//         items: snapshot.data!.map((CategoryModel category) {
-//           return DropdownMenuItem<String>(
-//             value: category.id,
-//             child: Text(category.name),
-//           );
-//         }).toList(),
-//         onChanged: (String? newValue) {
-//           if (newValue != null) {
-//             controller.selectedCategoryId.value = newValue; // Update the state variable
-//           }
-//         },
-//       );
-//     }
-//   },
-// )

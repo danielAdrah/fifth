@@ -99,214 +99,20 @@ class _CreateGoalState extends State<CreateLimit> {
                     child: Column(
                       children: [
                         const SizedBox(height: 20),
-                        // Padding(
-                        //   padding: EdgeInsets.all(media.width * 0.06),
-                        //   child: DropdownSearch<String>(
-                        //     onChanged: (value) {
-                        //       // controller.item = value;
-                        //     },
-                        //     popupProps: PopupProps.menu(
-                        //       itemBuilder: (context, item, isSelected) {
-                        //         IconData icon;
-                        //         switch (item) {
-                        //           case "Food":
-                        //             icon = Icons.fastfood;
-                        //             break;
-                        //           case "Drinks":
-                        //             icon = Icons.local_cafe;
-                        //             break;
-                        //           case "Entertainment":
-                        //             icon = Icons.movie;
-                        //             break;
-                        //           case "Education":
-                        //             icon = Icons.school;
-                        //             break;
-                        //           case "Other":
-                        //             icon = Icons.more_horiz;
-                        //             break;
-                        //           default:
-                        //             icon = Icons.help;
-                        //         }
-                        //         return Container(
-                        //           padding: const EdgeInsets.all(5),
-                        //           decoration: BoxDecoration(
-                        //             color: isSelected
-                        //                 ? TColor.gray50
-                        //                 : Colors.transparent,
-                        //           ),
-                        //           child: ListTile(
-                        //             title: Text(
-                        //               item,
-                        //               style: TextStyle(color: TColor.white),
-                        //             ),
-                        //             leading: Icon(
-                        //               icon,
-                        //               color: TColor.white,
-                        //             ),
-                        //           ),
-                        //         );
-                        //       },
-                        //       menuProps: MenuProps(
-                        //         backgroundColor: TColor.gray50,
-                        //         borderRadius: BorderRadius.circular(25),
-                        //       ),
-                        //       showSelectedItems: true,
-                        //     ),
-                        //     items: items,
-                        //     dropdownButtonProps: DropdownButtonProps(
-                        //       color: TColor.border,
-                        //     ),
-                        //     dropdownDecoratorProps: DropDownDecoratorProps(
-                        //       baseStyle: TextStyle(color: TColor.white),
-                        //       dropdownSearchDecoration: InputDecoration(
-                        //         label: Text(
-                        //           "Choose A Category",
-                        //           style: TextStyle(color: TColor.border),
-                        //         ),
-                        //         border: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.circular(18)),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // Padding(
-                        //   padding: EdgeInsets.all(media.width * 0.06),
-                        //   child: DropdownSearch<String>(
-                        //     onChanged: (value) {
-                        //       // controller.item = value;
-                        //     },
-                        //     popupProps: PopupProps.menu(
-                        //       itemBuilder: (context, item, isSelected) {
-                        //         IconData icon;
-                        //         switch (item) {
-                        //           case "Food":
-                        //             icon = Icons.fastfood;
-                        //             break;
-                        //           case "Drinks":
-                        //             icon = Icons.local_cafe;
-                        //             break;
-                        //           case "Entertainment":
-                        //             icon = Icons.movie;
-                        //             break;
-                        //           case "Education":
-                        //             icon = Icons.school;
-                        //             break;
-                        //           case "Other":
-                        //             icon = Icons.more_horiz;
-                        //             break;
-                        //           default:
-                        //             icon = Icons.help;
-                        //         }
-                        //         return Container(
-                        //           padding: const EdgeInsets.all(5),
-                        //           decoration: BoxDecoration(
-                        //             color: isSelected
-                        //                 ? TColor.gray50
-                        //                 : Colors.transparent,
-                        //           ),
-                        //           child: ListTile(
-                        //             title: Text(
-                        //               item,
-                        //               style: TextStyle(color: TColor.white),
-                        //             ),
-                        //             leading: Icon(
-                        //               icon,
-                        //               color: TColor.white,
-                        //             ),
-                        //           ),
-                        //         );
-                        //       },
-                        //       menuProps: MenuProps(
-                        //         backgroundColor: TColor.gray50,
-                        //         borderRadius: BorderRadius.circular(25),
-                        //       ),
-                        //       showSelectedItems: true,
-                        //     ),
-                        //     items: [
-                        //       "Syrian Bound",
-                        //       "Dollar",
-                        //     ],
-                        //     dropdownButtonProps: DropdownButtonProps(
-                        //       color: TColor.border,
-                        //     ),
-                        //     dropdownDecoratorProps: DropDownDecoratorProps(
-                        //       baseStyle: TextStyle(color: TColor.white),
-                        //       dropdownSearchDecoration: InputDecoration(
-                        //         label: Text(
-                        //           "Choose A Currency",
-                        //           style: TextStyle(color: TColor.border),
-                        //         ),
-                        //         border: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.circular(18)),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        FutureBuilder<List<CategoryModel>>(
-                          future: controller1.fetchCategory(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<CategoryModel>> snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Text(
-                                "Please Wait ...",
-                                style: TextStyle(color: TColor.white),
-                              );
-                            } else if (snapshot.hasError) {
-                              return Text('Error: ${snapshot.error}');
-                            } else {
-                              return Container(
-                                decoration: BoxDecoration(
-                                    color: TColor.gray60.withOpacity(0.8),
-                                    borderRadius: BorderRadius.circular(15)),
-                                width: 320,
-                                child: DropdownButton<String>(
-                                  borderRadius: BorderRadius.circular(25),
-
-                                  hint: Obx(
-                                    () => controller
-                                            .limitCategory.value.isNotEmpty
-                                        ? Text(controller.limitCategoryMap[
-                              controller.limitCategory.value] ?? "Select a category",
-                                            style: TextStyle(
-                                                color: TColor.white
-                                                    .withOpacity(0.4)))
-                                        : Text("Select a category",
-                                            style: TextStyle(
-                                                color: TColor.white
-                                                    .withOpacity(0.4))),
-                                  ),
-                                  items: snapshot.data!
-                                      .map((CategoryModel category) {
-                                    return DropdownMenuItem<String>(
-                                      value: category.id.toString(),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            category.name,
-                                            style:
-                                                TextStyle(color: TColor.white),
-                                          ),
-                                        ],
-                                      ), // Display the category name
-                                    );
-                                  }).toList(),
-                                  isExpanded: true,
-                                  padding: EdgeInsets.symmetric(horizontal: 12),
-                                  underline: Text(
-                                    "",
-                                    style: TextStyle(color: TColor.white),
-                                  ),
-                                  onChanged: (String? val) {
-                                    if (val != null) {
-                                      controller.limitCategory.value = val;
-                                      // controller.fetchSubcategory();
-                                    }
-                                  }, //o Implement your logic here when a selection changes
-                                ),
-                              );
-                            }
-                          },
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Category",
+                                style: TextStyle(
+                                    color: TColor.white.withOpacity(0.4),
+                                    fontSize: 12),
+                              ),
+                            ),
+                            categoryList(),
+                          ],
                         ),
                         Padding(
                           padding: EdgeInsets.all(media.width * 0.06),
@@ -368,6 +174,69 @@ class _CreateGoalState extends State<CreateLimit> {
           ],
         ),
       ),
+    );
+  }
+
+  FutureBuilder<List<CategoryModel>> categoryList() {
+    return FutureBuilder<List<CategoryModel>>(
+      future: controller1.fetchCategory(),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<CategoryModel>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text(
+            "Please Wait ...",
+            style: TextStyle(color: TColor.white),
+          );
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return Container(
+            decoration: BoxDecoration(
+                color: TColor.gray60.withOpacity(0.8),
+                borderRadius: BorderRadius.circular(15)),
+            width: 320,
+            child: DropdownButton<String>(
+              borderRadius: BorderRadius.circular(25),
+
+              hint: Obx(
+                () => controller.limitCategory.value.isNotEmpty
+                    ? Text(
+                        controller.limitCategoryMap[
+                                controller.limitCategory.value] ??
+                            "Select a category",
+                        style: TextStyle(color: TColor.white))
+                    : Text("Select a category",
+                        style: TextStyle(color: TColor.white.withOpacity(0.4))),
+              ),
+              items: snapshot.data!.map((CategoryModel category) {
+                return DropdownMenuItem<String>(
+                  value: category.id.toString(),
+                  child: Row(
+                    children: [
+                      Text(
+                        category.name,
+                        style: TextStyle(color: TColor.white),
+                      ),
+                    ],
+                  ), // Display the category name
+                );
+              }).toList(),
+              isExpanded: true,
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              underline: Text(
+                "",
+                style: TextStyle(color: TColor.white),
+              ),
+              onChanged: (String? val) {
+                if (val != null) {
+                  controller.limitCategory.value = val;
+                  // controller.fetchSubcategory();
+                }
+              }, //o Implement your logic here when a selection changes
+            ),
+          );
+        }
+      },
     );
   }
 

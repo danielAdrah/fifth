@@ -10,8 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import '../core/api/api_consmer.dart';
 import '../model/test_model.dart';
-import '../model/user_info_model.dart';
-import '../view/bottom_bar/bottom_bar_view.dart';
+ import '../view/bottom_bar/bottom_bar_view.dart';
 import 'user_state.dart';
 import 'package:http/http.dart' as http;
 import "../core/api/end_point.dart";
@@ -40,51 +39,50 @@ class UserController extends GetxController {
   UserController({required this.api});
   LogInModel? user;
   SignUpModel? signUpUser;
-  UserInfoModel? userInfo;
-  RxBool secure = true.obs;
+   RxBool secure = true.obs;
   RxBool cSecure = true.obs;
   RxBool signInSecure = true.obs;
   final GetStorage storage = GetStorage();
-  signUp2() async {
-    userState = SignInLoading();
-    update();
-    try {
-      print("1");
-      final response = await http.post(
-        Uri.parse("http://85.31.237.33/project/auth/sign-up/"),
-        body: jsonEncode({
-          ApiKeys.email: txtEmail.text,
-          ApiKeys.username: txtName.text,
-          ApiKeys.password: txtPassword.text,
-          ApiKeys.confpassword: txtConfPass.text,
-        }),
-      );
-      print("2");
-      print("the response is ");
-      print(response.body.toString());
-      if (response.statusCode == 200) {
-        Map<String, dynamic> responseBody = jsonDecode(response.body);
-        print("from login $responseBody");
-      } else {
-        throw Exception(
-            'Failed to log in with status code ${response.statusCode}');
-      }
-    } catch (e) {
-      if (e is http.ClientException) {
-        print("HTTP request failed, error: ${e.message}");
-      } else if (e is FormatException) {
-        print("Failed to parse JSON, error: ${e.message}");
-      } else if (e is Exception) {
-        // Catch general exceptions
-        print("An unexpected error occurred: ${e.toString()}");
-      } else {
-        print("Unknown error: $e");
-      }
-      // userState =
-      //     SignInFailure(errMessage: e.errModel.non_field_errors.toString());
-      // update();
-    }
-  }
+  // signUp2() async {
+  //   userState = SignInLoading();
+  //   update();
+  //   try {
+  //     print("1");
+  //     final response = await http.post(
+  //       Uri.parse("http://85.31.237.33/project/auth/sign-up/"),
+  //       body: jsonEncode({
+  //         ApiKeys.email: txtEmail.text,
+  //         ApiKeys.username: txtName.text,
+  //         ApiKeys.password: txtPassword.text,
+  //         ApiKeys.confpassword: txtConfPass.text,
+  //       }),
+  //     );
+  //     print("2");
+  //     print("the response is ");
+  //     print(response.body.toString());
+  //     if (response.statusCode == 200) {
+  //       Map<String, dynamic> responseBody = jsonDecode(response.body);
+  //       print("from login $responseBody");
+  //     } else {
+  //       throw Exception(
+  //           'Failed to log in with status code ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     if (e is http.ClientException) {
+  //       print("HTTP request failed, error: ${e.message}");
+  //     } else if (e is FormatException) {
+  //       print("Failed to parse JSON, error: ${e.message}");
+  //     } else if (e is Exception) {
+  //       // Catch general exceptions
+  //       print("An unexpected error occurred: ${e.toString()}");
+  //     } else {
+  //       print("Unknown error: $e");
+  //     }
+  //     // userState =
+  //     //     SignInFailure(errMessage: e.errModel.non_field_errors.toString());
+  //     // update();
+  //   }
+  // }
 
   singIn() async {
     userState = SignInLoading();
