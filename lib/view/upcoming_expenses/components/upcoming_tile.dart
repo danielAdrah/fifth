@@ -1,32 +1,29 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get/get.dart';
-import '../controller/expense_controller.dart';
-import '../theme.dart';
+ 
+import '../../../theme.dart';
+ 
 
-class MyListTile extends StatefulWidget {
+class UpcomingTile extends StatefulWidget {
   final String type;
   final String title;
   final String price;
   final DateTime date;
-  final String img;
-  const MyListTile({
+  // final String img;
+  const UpcomingTile({
     super.key,
     required this.type,
     required this.title,
     required this.price,
     required this.date,
-    required this.img,
+    // required this.img,
   });
 
   @override
-  State<MyListTile> createState() => _MyListTileState();
+  State<UpcomingTile> createState() => _UpcomingTileState();
 }
 
-class _MyListTileState extends State<MyListTile> {
-  final _controller = Get.put(ExpenseController());
-  @override
+class _UpcomingTileState extends State<UpcomingTile> {
+   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {},
@@ -41,11 +38,10 @@ class _MyListTileState extends State<MyListTile> {
             ),
           ),
           child: ListTile(
-            leading: Icon(
-              Icons.fastfood_outlined,
-              size: 33,
-              color: Colors.white,
-            ),
+            // leading: Image(
+            //   image: NetworkImage(widget.img),
+            //   fit: BoxFit.fill,
+            // ),
             title: Text(widget.title),
             subtitle: Text(
                 '${widget.date.day}/${widget.date.month}/${widget.date.year}'),

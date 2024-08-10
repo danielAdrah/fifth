@@ -12,8 +12,7 @@ import '../../common/secondary_button.dart';
 import '../../controller/user_controller.dart';
 import '../../core/api/dio_consumer.dart';
 import '../../theme.dart';
-import '../bottom_bar/bottom_bar_view.dart';
-import 'sign_in_view.dart';
+ import 'sign_in_view.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});

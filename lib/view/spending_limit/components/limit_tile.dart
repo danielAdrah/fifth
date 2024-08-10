@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme.dart';
@@ -10,7 +11,7 @@ class LimitTile extends StatelessWidget {
   final String totalAmount;
   final String spendAmount;
   final String remainedAmount;
-  
+
   final double progressValue;
   LimitTile({
     super.key,
@@ -18,7 +19,7 @@ class LimitTile extends StatelessWidget {
     required this.totalAmount,
     required this.spendAmount,
     required this.remainedAmount,
-      required this.progressValue,
+    required this.progressValue,
   });
 
   @override
@@ -49,11 +50,10 @@ class LimitTile extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Image.asset(
-                        "assets/img/budget.png",
-                        width: 35,
-                        height: 35,
-                        color: TColor.gray50,
+                      child: Icon(
+                        Icons.fastfood_outlined,
+                        size: 33,
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(width: 15),
@@ -111,11 +111,10 @@ class LimitTile extends StatelessWidget {
                     TColor.secondaryG50,
                   ),
                   minHeight: 3,
-                  value:  progressValue,
+                  value: progressValue,
                 ),
                 const SizedBox(
                   height: 5,
-                  
                 ),
               ],
             ),

@@ -27,7 +27,17 @@ class EndPoint {
     return "charts/get-limit/$id";
   }
 
+  static String deleteUpcoming(id) {
+    return "charts/delete-upcoming/$id";
+  }
+
+  static String updateUpcoming(id) {
+    return "charts/update-upcoming/$id";
+  }
+
   static String listItems = "charts/create-item/";
+  static String upcomingList = "charts/list-upcoming";
+  static String createUpcoming = "charts/create-upcoming/";
 }
 
 class ApiKeys {
@@ -47,6 +57,7 @@ class ApiKeys {
   static String account = "account";
   static String subcategory = "subcategory";
   static String category_name = "category_name";
+  static String date = "date";
   //===========
   static String user = "user";
   static String startDate = "start_date";

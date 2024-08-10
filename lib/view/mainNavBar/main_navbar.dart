@@ -14,8 +14,8 @@ import '../charts_view/chart_view.dart';
 import '../goals/component/create_goal.dart';
 import '../goals/goals_view.dart';
 import '../home/home_view.dart';
-import '../incoming_expenses/components/create_income.dart';
-import '../incoming_expenses/incoming_expense_view.dart';
+import '../upcoming_expenses/components/create_upcoming.dart';
+import '../upcoming_expenses/upcoming_expense_view.dart';
 
 import '../spending_limit/spending_limit_view.dart';
 
@@ -184,7 +184,7 @@ class _MainNavBarState extends State<MainNavBar> {
                 onTap: () {
                   setState(() {
                     selectTab = 3;
-                    currentTabView = IcomingExpenses();
+                    currentTabView = UpcomingExpense();
                   });
                 },
                 child: Column(
@@ -194,7 +194,7 @@ class _MainNavBarState extends State<MainNavBar> {
                       onTap: () {
                         setState(() {
                           selectTab = 3;
-                          currentTabView = IcomingExpenses();
+                          currentTabView = UpcomingExpense();
                         });
                       },
                       iconType: IconType.animatedOnTap,
@@ -204,7 +204,7 @@ class _MainNavBarState extends State<MainNavBar> {
                       animateIcon: AnimateIcons.hourglass,
                     ),
                     Text(
-                      "Icoming",
+                      "upcoming",
                       style: TextStyle(
                           fontSize: 13,
                           color: selectTab == 3 ? TColor.white : TColor.gray30),
@@ -271,7 +271,7 @@ _showDialoge(BuildContext context) {
                     List<String> titles = [
                       "Create Expense",
                       "Create\nGoal",
-                      "Create Incoming",
+                      "Create Upcoming",
                       "Spending\nLimit"
                     ];
                     return InkWell(

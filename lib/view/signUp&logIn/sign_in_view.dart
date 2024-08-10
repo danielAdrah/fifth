@@ -8,8 +8,7 @@ import '../../common/rounded_textField.dart';
 import '../../common/secondary_button.dart';
 import '../../core/api/dio_consumer.dart';
 import '../../theme.dart';
-import '../bottom_bar/bottom_bar_view.dart';
-import '../mainNavBar/main_navbar.dart';
+ import '../mainNavBar/main_navbar.dart';
 import 'sign_up_view.dart';
 import "package:animate_do/animate_do.dart";
 

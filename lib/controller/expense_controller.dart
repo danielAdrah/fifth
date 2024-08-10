@@ -1,20 +1,19 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
+import 'package:fifth/controller/limit_controller.dart';
 import 'package:fifth/controller/user_state.dart';
 import 'package:fifth/core/api/end_point.dart';
 import 'package:fifth/core/errors/excption.dart';
 import 'package:fifth/model/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../common/success_alert.dart';
 import '../model/categories_model.dart';
 import '../model/subcategory_model.dart';
 
 class ExpenseController extends GetxController {
+  final controller = Get.put(LimitController());
   var dio = Dio(BaseOptions(
     baseUrl: "http://85.31.237.33/project/",
   ));
@@ -117,7 +116,7 @@ class ExpenseController extends GetxController {
       expense = jsonResponse.map((e) => ExpenseModel.fromJson(e)).toList();
       var expId = expense.map((e) => e.id);
       storage.write("expId", expId);
-      print("info after parsing ${expense[0].itemName}");
+
       expenses.value = expense;
       return expense;
     } on DioException catch (e) {
@@ -152,12 +151,14 @@ class ExpenseController extends GetxController {
             // ApiKeys.subcategory: subCategoryId.value,
           });
       print("the added expense is ${response.data}");
+      print("newwwwwwwwwwwww ${subCategoryId.value}");
       userState = SuccessCreated();
       update();
       created.value = true;
       done = true;
       update();
       await displayExpense();
+      await controller.displayLimits();
     } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');

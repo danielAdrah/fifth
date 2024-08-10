@@ -4,8 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../theme.dart';
-import '../bottom_bar/bottom_bar_view.dart';
-import '../mainNavBar/main_navbar.dart';
+ import '../mainNavBar/main_navbar.dart';
 import '../signUp&logIn/sign_in_view.dart';
 import '../signUp&logIn/sign_up_view.dart';
 import 'onboarding_design.dart';

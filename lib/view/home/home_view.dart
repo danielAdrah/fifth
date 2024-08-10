@@ -58,8 +58,8 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              controller.displayExpense();
-                              // Get.to(() => const SettingsView());
+                              // controller.displayExpense();
+                              Get.to(() => const SettingsView());
                             },
                             icon: Icon(
                               Icons.settings_sharp,

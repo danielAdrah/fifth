@@ -5,8 +5,9 @@ import '../theme.dart';
 class SettingsValue extends StatelessWidget {
   final String name;
   final IconData icon;
-  final String text;
-  const SettingsValue({super.key, required this.name, required this.icon,required this.text});
+   Widget? child;
+  void Function()? onTap;
+    SettingsValue({super.key, required this.name, required this.icon,required this.child,required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,10 @@ class SettingsValue extends StatelessWidget {
             ],
             
           ),
-          Text(text,
-                  style: TextStyle(
-                    color: TColor.white,
-                  )),
+          InkWell(
+            onTap: onTap,
+            child: child,
+          ),
         ],
       ),
     );

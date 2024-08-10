@@ -142,11 +142,11 @@ class LimitController extends GetxController {
         ),
         data: {
           ApiKeys.user: userId,
-          ApiKeys.startDate: "2024-1-2",
-          ApiKeys.endDate: "2024-1-4",
-          ApiKeys.limit: "500",
+          ApiKeys.startDate: newstartDate.text,
+          ApiKeys.endDate: newendDate.text,
+          ApiKeys.limit: newamount.text,
           ApiKeys.currency: "ل.س",
-          ApiKeys.category: "1",
+          ApiKeys.category: updatedLimitCategory.value,
         },
       );
       print("the updated limit is ${response.data}");

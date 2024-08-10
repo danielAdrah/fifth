@@ -1,13 +1,9 @@
 import 'package:fifth/view/onboarding/onboarding_view.dart';
-import 'package:fifth/view/signUp&logIn/sign_up_view.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'theme.dart';
 import "package:get_storage/get_storage.dart";
-import './view/signUp&logIn/sign_in_view.dart';
-import 'view/bottom_bar/bottom_bar_view.dart';
-import 'view/mainNavBar/main_navbar.dart';
-
+ 
 void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   // ByteData data = await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
@@ -35,12 +31,7 @@ class MyApp extends StatelessWidget {
           secondary: TColor.secondary,
         ),
       ),
-      initialRoute: '/',
-      getPages: [
-        GetPage(name: '/signIn', page: () => const Signin()),
-        GetPage(name: '/signUp', page: () => const SignUp()),
-        GetPage(name: '/bottomBar', page: () => const BottomBarView()),
-      ],
+      
       home: const Onboarding(),
 
       //  Onboarding
