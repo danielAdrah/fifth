@@ -49,6 +49,10 @@ class EndPoint {
     return "delete-account/$id";
   }
 
+  static String displayPiechart(id) {
+    return "charts/pie-categories/$id";
+  }
+
   static String listItems = "charts/create-item/";
   static String upcomingList = "charts/list-upcoming";
   static String createUpcoming = "charts/create-upcoming/";

@@ -18,6 +18,12 @@ class AccountsView extends StatefulWidget {
 class _AccountsViewState extends State<AccountsView> {
   final controller = Get.put(ExpenseController());
   @override
+  void initState() {
+    super.initState();
+    controller.fetchAccount();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TColor.gray,

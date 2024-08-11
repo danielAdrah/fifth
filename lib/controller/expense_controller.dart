@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_local_variable
 
 import 'package:dio/dio.dart';
 import 'package:fifth/controller/limit_controller.dart';
@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../model/categories_model.dart';
 import '../model/subcategory_model.dart';
+import '../model/piechart_model.dart';
 
 class ExpenseController extends GetxController {
   final controller = Get.put(LimitController());
@@ -42,6 +43,10 @@ class ExpenseController extends GetxController {
 
     // Add more mappings as needed
   };
+  Map<String, String> accountsMap = {
+    "22": "Daily Expenses",
+    "10": "Large Expenses"
+  };
   RxBool created = false.obs;
   bool done = false;
   String? newItem;
@@ -50,13 +55,15 @@ class ExpenseController extends GetxController {
   var accountId = ''.obs;
   var subCategoryId = "".obs;
   var updatedSubCategoryId = "".obs;
+  var pie = PiechartModel(category: "", sum: 0).obs;
   RxList<ExpenseModel> expenses = <ExpenseModel>[].obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<Subcategories> subCategories =
       <Subcategories>[].obs; //pass it when creating an expense
   RxList<AccountsModel> myAccounts =
       <AccountsModel>[].obs; //pass it when creating an expense
-
+  RxList<PiechartModel> pieInfo = <PiechartModel>[].obs;
+  RxMap piechartData = {}.obs;
 //==============================
 
   Future<List<CategoryModel>> fetchCategory() async {
@@ -186,6 +193,7 @@ class ExpenseController extends GetxController {
       done = true;
       update();
       await displayExpense();
+      await mainPieChart();
       await controller.displayLimits();
     } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
@@ -261,6 +269,31 @@ class ExpenseController extends GetxController {
     } on ServerExcption catch (e) {
       throw Exception(
           'Failed to load posts: ${e.errModel.non_field_errors.toString()}');
+    }
+  }
+
+  //=========================
+  mainPieChart() async {
+    var token = storage.read("accessToken");
+    try {
+      var response = await dio.get(EndPoint.displayPiechart(accountId.value),
+          options: Options(
+            headers: {
+              ApiKeys.auth: "Bearer $token",
+            },
+          ));
+      print("from main pieeeeeee ${response.data}");
+      List<dynamic> jsonResponse = response.data;
+      List<PiechartModel> pieData =
+          jsonResponse.map((e) => PiechartModel.fromJson(e)).toList();
+       print("after parsing");
+      pieInfo.value = pieData;
+      for (var data in pieData) {
+        piechartData.value[data.category] = data.sum.toDouble();
+      }
+    } on DioException catch (e) {
+      print("Error fetching expenses: ${e.message}");
+      throw Exception('Failed to load expenses: ${e.message}');
     }
   }
 }

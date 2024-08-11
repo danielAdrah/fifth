@@ -96,92 +96,73 @@ class _SettingsViewState extends State<SettingsView> {
                                       color: TColor.gray40.withOpacity(0.4),
                                       borderRadius: BorderRadius.circular(24),
                                     ),
-                                    child: FutureBuilder(
-                                        future: controller.fetchUserInfo(),
-                                        builder: (context, snapshot) {
-                                          var data = snapshot.data!;
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return Center(
-                                                child: SpinKitSpinningLines(
-                                              color: TColor.primary,
-                                              size: 40,
-                                            ));
-                                          } else if (snapshot.hasError) {
-                                            return Center(
-                                                child: Text(
-                                                    'Error: ${snapshot.error}'));
-                                          } else {
-                                            return Column(
-                                              children: [
-                                                SettingsValue(
-                                                  name: "Name",
-                                                  icon: Icons.person,
-                                                  child: Text(
-                                                    "${data.username}",
-                                                    style: TextStyle(
-                                                        color: TColor.white),
-                                                  ),
-                                                  onTap2: () {
-                                                    controller.fetchUserInfo();
-                                                  },
-                                                ),
-                                                const SizedBox(height: 5),
-                                                SettingsValue(
-                                                  name: "E-mail",
-                                                  icon: Icons.mail,
-                                                  child: Text(
-                                                    "${data.email}",
-                                                    style: TextStyle(
-                                                        color: TColor.white),
-                                                  ),
-                                                  onTap2: () {},
-                                                ),
-                                                const SizedBox(height: 5),
-                                                SettingsValue(
-                                                  name: "Password",
-                                                  icon: Icons.password,
-                                                  child: Text(
-                                                    "Change It",
-                                                    style: TextStyle(
-                                                        color: TColor.white),
-                                                  ),
-                                                  onTap2: () {},
-                                                ),
-                                                const SizedBox(height: 10),
-                                                InkWell(
-                                                  onTap: () {},
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 8,
-                                                            bottom: 8,
-                                                            right: 15,
-                                                            left: 15),
-                                                    decoration: BoxDecoration(
-                                                        color: TColor.gray30
-                                                            .withOpacity(0.2),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                        border: Border.all(
-                                                            color: TColor.border
-                                                                .withOpacity(
-                                                                    0.15))),
-                                                    child: Text(
-                                                      "Edit Profile",
-                                                      style: TextStyle(
-                                                          color: TColor.white,
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          }
-                                        })),
+                                    child: Obx(
+                                      () => Column(
+                                        children: [
+                                          SettingsValue(
+                                            name: "Name",
+                                            icon: Icons.person,
+                                            child: Text(
+                                              "${controller.userProfile.value.username}",
+                                              style: TextStyle(
+                                                  color: TColor.white),
+                                            ),
+                                            onTap2: () {
+                                              controller.fetchUserInfo();
+                                            },
+                                          ),
+                                          const SizedBox(height: 5),
+                                          SettingsValue(
+                                            name: "E-mail",
+                                            icon: Icons.mail,
+                                            child: Text(
+                                              "${controller.userProfile.value.email}",
+                                              style: TextStyle(
+                                                  color: TColor.white),
+                                            ),
+                                            onTap2: () {},
+                                          ),
+                                          const SizedBox(height: 5),
+                                          SettingsValue(
+                                            name: "Password",
+                                            icon: Icons.password,
+                                            child: Text(
+                                              "Change It",
+                                              style: TextStyle(
+                                                  color: TColor.white),
+                                            ),
+                                            onTap2: () {},
+                                          ),
+                                          const SizedBox(height: 10),
+                                          InkWell(
+                                            onTap: () {},
+                                            child: Container(
+                                              padding: const EdgeInsets.only(
+                                                  top: 8,
+                                                  bottom: 8,
+                                                  right: 15,
+                                                  left: 15),
+                                              decoration: BoxDecoration(
+                                                  color: TColor.gray30
+                                                      .withOpacity(0.2),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  border: Border.all(
+                                                      color: TColor.border
+                                                          .withOpacity(0.15))),
+                                              child: Text(
+                                                "Edit Profile",
+                                                style: TextStyle(
+                                                    color: TColor.white,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
                               ]),
                             ),
                             Padding(

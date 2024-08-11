@@ -63,8 +63,8 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              // controller.fetchAccount();
-                              Get.to(() => const SettingsView());
+                              controller.mainPieChart();
+                              // Get.to(() => const SettingsView());
                             },
                             icon: Icon(
                               Icons.settings_sharp,
@@ -111,15 +111,18 @@ class _HomeViewState extends State<HomeView> {
                                   return DropdownButton<String>(
                                     borderRadius: BorderRadius.circular(25),
                                     hint: Obx(
-                                      () =>
-                                          controller.accountId.value.isNotEmpty
-                                              ? Text(controller.accountId.value,
-                                                  style: TextStyle(
-                                                      color: TColor.white))
-                                              : Text("Select an account",
-                                                  style: TextStyle(
-                                                      color: TColor.white
-                                                          .withOpacity(0.4))),
+                                      () => controller
+                                              .accountId.value.isNotEmpty
+                                          ? Text(
+                                              controller.accountsMap[controller
+                                                      .accountId.value] ??
+                                                  "Select an account",
+                                              style: TextStyle(
+                                                  color: TColor.white))
+                                          : Text("Select an account",
+                                              style: TextStyle(
+                                                  color: TColor.white
+                                                      .withOpacity(0.4))),
                                     ),
                                     items: snapshot.data!
                                         .map((AccountsModel account) {
@@ -147,6 +150,7 @@ class _HomeViewState extends State<HomeView> {
                                       if (val != null) {
                                         controller.accountId.value = val;
                                         controller.displayExpense();
+                                        controller.mainPieChart();
                                       }
                                     },
                                   );

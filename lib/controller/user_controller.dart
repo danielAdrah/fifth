@@ -179,6 +179,7 @@ class UserController extends GetxController {
       ProfileModel pro = ProfileModel.fromJson(response.data);
       print("after parsing ${pro.username}");
       // userProfile.value = pro;
+      userProfile.value = pro;
       return pro;
     } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
@@ -186,3 +187,20 @@ class UserController extends GetxController {
     }
   }
 }
+
+// XFile? _pickedImage;
+//   RxString _profileImageUrl = "assets/img/u1.png".obs;
+
+//   Future<void> pickImage() async {
+//     final ImagePicker _picker = ImagePicker();
+//     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+//     if (image != null) {
+//       setState(() {
+//         _pickedImage = image;
+//         _profileImageUrl.value = image.path;
+//       });
+//     }
+//   }
+
+// backgroundImage: AssetImage(controller._profileImageUrl.value)

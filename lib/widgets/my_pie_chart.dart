@@ -3,9 +3,10 @@
 import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 import 'package:pie_chart/pie_chart.dart';
+import '../controller/expense_controller.dart';
 import '../model/pie_chart_model.dart';
 import '../theme.dart';
-// import 'package:http/http.dart';
+import 'package:get/get.dart';
 
 class MyPieChart extends StatefulWidget {
   const MyPieChart({super.key});
@@ -15,6 +16,7 @@ class MyPieChart extends StatefulWidget {
 }
 
 class _MyPieChartState extends State<MyPieChart> {
+  final controller = Get.put(ExpenseController());
   @override
   Widget build(BuildContext context) {
     // var media = MediaQuery.of(context).size;
@@ -30,8 +32,10 @@ class _MyPieChartState extends State<MyPieChart> {
     return Padding(
       padding: const EdgeInsets.only(left: 15),
       child: PieChart(
-        dataMap: Map.fromIterable(pieChartData,
-            key: (data) => data.label, value: (data) => data.value),
+        dataMap:
+            //controller.piechartData.value as Map<String, double>,
+            Map.fromIterable(pieChartData,
+                key: (data) => data.label, value: (data) => data.value),
         animationDuration: Duration(milliseconds: 800),
         chartRadius: MediaQuery.of(context).size.width / 2,
         chartType: ChartType.ring,
