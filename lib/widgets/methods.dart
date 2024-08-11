@@ -62,6 +62,7 @@ FutureBuilder<List<CategoryModel>> categoryDropdown() {
             }, //o Implement your logic here when a selection changes
           ),
         );
+      
       }
     },
   );

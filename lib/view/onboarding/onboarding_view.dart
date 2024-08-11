@@ -4,7 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../theme.dart';
- import '../mainNavBar/main_navbar.dart';
+import '../mainNavBar/main_navbar.dart';
 import '../signUp&logIn/sign_in_view.dart';
 import '../signUp&logIn/sign_up_view.dart';
 import 'onboarding_design.dart';
@@ -48,11 +48,10 @@ class _OnboardingState extends State<Onboarding> {
                       width: 300,
                       height: 300,
                       child: Center(
-                          child: 
-                          SvgPicture.asset(
-                            pages[index].image!,
-                          ),
-                          ),
+                        child: SvgPicture.asset(
+                          pages[index].image!,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -92,22 +91,25 @@ class _OnboardingState extends State<Onboarding> {
           Container(
             alignment: const Alignment(0, 0.75),
             child: isLastPage
-                ? Container(
-                    width: 240,
-                    height: 40,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                              Colors.white.withOpacity(0.6))),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignUp()));
-                      },
-                      child: const Text(
-                        "GetStarted",
-                        style: TextStyle(color: Colors.black, fontSize: 15),
+                ? ZoomIn(
+                    delay: Duration(milliseconds: 600),
+                    child: Container(
+                      width: 240,
+                      height: 40,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                Colors.white.withOpacity(0.6))),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUp()));
+                        },
+                        child: const Text(
+                          "GetStarted",
+                          style: TextStyle(color: Colors.black, fontSize: 15),
+                        ),
                       ),
                     ),
                   )

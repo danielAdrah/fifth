@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'package:dio/dio.dart';
 import 'package:fifth/controller/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import "package:animate_do/animate_do.dart";
 import '../../common/primary_button.dart';
@@ -24,9 +25,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
-    bool isScure = false;
-    final FocusNode myNode = FocusNode();
-    var media = MediaQuery.of(context).size;
+   
     final controller = Get.put(UserController(api: DioConsumer(dio: Dio())));
 
     return GetBuilder(
@@ -200,7 +199,10 @@ class _SignUpState extends State<SignUp> {
                           height: 20,
                         ),
                         controller.userState is SignUpLoading
-                            ? CircularProgressIndicator()
+                            ? SpinKitSpinningLines(
+                          color: TColor.primary,
+                          size: 40,
+                        )
                             : FadeInRightBig(
                                 delay: const Duration(milliseconds: 500),
                                 child: PrimaryButton(

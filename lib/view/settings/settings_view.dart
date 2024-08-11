@@ -11,6 +11,7 @@ import '../../common/settings_value.dart';
 import '../../core/api/dio_consumer.dart';
 import '../../theme.dart';
 import '../../controller/user_controller.dart';
+import '../summary/summary_view.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -37,8 +38,7 @@ class _SettingsViewState extends State<SettingsView> {
                     children: [
                       CircleAvatar(
                         radius: 70,
-                        backgroundColor: TColor.gray20,
-                        child: Text("A", style: TextStyle(fontSize: 40)),
+                        backgroundImage: AssetImage("assets/img/u1.png"),
                       ),
                       Positioned(
                         right: 10,
@@ -111,7 +111,9 @@ class _SettingsViewState extends State<SettingsView> {
                                         "Ali Ahmad",
                                         style: TextStyle(color: TColor.white),
                                       ),
-                                      onTap: () {},
+                                      onTap2: () {
+                                        controller.fetchUserInfo();
+                                      },
                                     ),
                                     const SizedBox(height: 5),
                                     SettingsValue(
@@ -121,7 +123,7 @@ class _SettingsViewState extends State<SettingsView> {
                                         "ali@gmail.com",
                                         style: TextStyle(color: TColor.white),
                                       ),
-                                      onTap: () {},
+                                      onTap2: () {},
                                     ),
                                     const SizedBox(height: 5),
                                     SettingsValue(
@@ -131,7 +133,7 @@ class _SettingsViewState extends State<SettingsView> {
                                         "Change It",
                                         style: TextStyle(color: TColor.white),
                                       ),
-                                      onTap: () {},
+                                      onTap2: () {},
                                     ),
                                     const SizedBox(height: 10),
                                     InkWell(
@@ -195,7 +197,9 @@ class _SettingsViewState extends State<SettingsView> {
                                         Icons.arrow_forward_ios,
                                         color: TColor.white,
                                       ),
-                                      onTap: () {},
+                                      onTap2: () {
+                                        Get.to(SummaryView());
+                                      },
                                     ),
                                     SizedBox(height: 5),
                                     SettingsValue(
@@ -205,7 +209,7 @@ class _SettingsViewState extends State<SettingsView> {
                                         Icons.arrow_forward_ios,
                                         color: TColor.white,
                                       ),
-                                      onTap: () {},
+                                      onTap2: () {},
                                     ),
                                     SizedBox(height: 5),
                                     SettingsValue(
@@ -215,7 +219,7 @@ class _SettingsViewState extends State<SettingsView> {
                                         Icons.arrow_forward_ios,
                                         color: TColor.white,
                                       ),
-                                      onTap: () {},
+                                      onTap2: () {},
                                     ),
                                   ],
                                 ),
@@ -246,7 +250,7 @@ class _SettingsViewState extends State<SettingsView> {
                                         SettingsValue(
                                           icon: Icons.person,
                                           name: "Switch to another account",
-                                          onTap: () {},
+                                          onTap2: () {},
                                           child: Icon(
                                             Icons.arrow_forward_ios,
                                             color: TColor.white,
@@ -255,7 +259,7 @@ class _SettingsViewState extends State<SettingsView> {
                                         SettingsValue(
                                           icon: Icons.delete,
                                           name: "Delete my accounts",
-                                          onTap: () {},
+                                          onTap2: () {},
                                           child: Icon(
                                             Icons.arrow_forward_ios,
                                             color: TColor.white,

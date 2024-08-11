@@ -7,6 +7,16 @@ class EndPoint {
   static String subCategories = "charts/subcategories";
   static String createLimit = "charts/create-limit/";
   static String showLimits = "charts/list-limits";
+  static String createAccount = "create-account/";
+  static String myAccounts = "accounts/";
+  static String profileInfo(id) {
+    return "setting/profile-info/$id";
+  }
+
+  static String myItems(id) {
+    return "charts/items/$id";
+  }
+
   static String deleteLimit(id) {
     return "charts/delete-limit/$id";
   }
@@ -49,6 +59,9 @@ class ApiKeys {
   static String password = "password";
   static String confpassword = "confirm_password";
   static String name = "name";
+  static String currency = "currency";
+  static String budget = "budget";
+  static String notes = "notes";
   //===========
   static String itemName = "item_name";
   static String quantity = "quantity";
@@ -64,5 +77,4 @@ class ApiKeys {
   static String endDate = "end_date";
   static String limit = "limit";
   static String category = "category";
-  static String currency = "currency";
 }

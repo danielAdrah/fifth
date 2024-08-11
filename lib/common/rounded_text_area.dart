@@ -11,12 +11,12 @@ class RoundedTextArea extends StatelessWidget {
   final Widget icon;
   final bool obscureText;
   final VoidCallback onIconPressed;
-  const RoundedTextArea(
+    RoundedTextArea(
       {super.key,
       required this.title,
       this.controller,
       this.titleAlign = TextAlign.left,
-      required this.icon,
+        required this.icon ,
       this.keyboardType,
       this.obscureText = false,
       required this.onIconPressed,

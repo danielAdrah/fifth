@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../common/custome_app_bar.dart';
 import '../../theme.dart';
 import '../settings/settings_view.dart';
+import 'components/total_chart.dart';
 
 class ChartView extends StatefulWidget {
   const ChartView({super.key});
@@ -34,7 +35,7 @@ class _ChartViewState extends State<ChartView> {
                   Padding(
                     padding: EdgeInsets.only(left: media.width * 0.07),
                     child: Text(
-                      "Line Chart",
+                      "Monthly number of items bought",
                       style: TextStyle(color: TColor.gray30),
                     ),
                   ),
@@ -58,7 +59,7 @@ class _ChartViewState extends State<ChartView> {
                     SizedBox(height: 100),
                     Center(
                       child: Text(
-                        "Line Chart",
+                        "",
                         style: TextStyle(color: TColor.white),
                       ),
                     ),
@@ -71,7 +72,7 @@ class _ChartViewState extends State<ChartView> {
                   Padding(
                     padding: EdgeInsets.only(left: media.width * 0.07),
                     child: Text(
-                      "Bar Chart",
+                      "Total spending on items per month",
                       style: TextStyle(color: TColor.gray30),
                     ),
                   ),
@@ -87,20 +88,20 @@ class _ChartViewState extends State<ChartView> {
                   color: TColor.gray70.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(40),
                 ),
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    //here will put the Bar chart wodget
-                    SizedBox(height: 100),
-                    Center(
-                      child: Text(
-                        "Bar Chart",
-                        style: TextStyle(color: TColor.white),
-                      ),
-                    ),
-                  ],
-                ),
+                child: IncreasingLineChart(),
+                // ListView(
+                //   shrinkWrap: true,
+                //   physics: const NeverScrollableScrollPhysics(),
+                //   children: [
+                //     //here will put the Bar chart wodget
+                //     // SizedBox(height: 100),
+                //     Container(
+                //       width: 250,
+                //       height: 300,
+                //       child: IncreasingLineChart(),
+                //     ),
+                //   ],
+                // ),
               ),
               SizedBox(height: 100),
             ],

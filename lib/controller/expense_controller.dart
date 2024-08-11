@@ -5,6 +5,7 @@ import 'package:fifth/controller/limit_controller.dart';
 import 'package:fifth/controller/user_state.dart';
 import 'package:fifth/core/api/end_point.dart';
 import 'package:fifth/core/errors/excption.dart';
+import 'package:fifth/model/accounts_model.dart';
 import 'package:fifth/model/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,12 +47,15 @@ class ExpenseController extends GetxController {
   String? newItem;
   String? selectedCategory;
   var selectedCategoryId = ''.obs;
+  var accountId = ''.obs;
   var subCategoryId = "".obs;
   var updatedSubCategoryId = "".obs;
   RxList<ExpenseModel> expenses = <ExpenseModel>[].obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<Subcategories> subCategories =
       <Subcategories>[].obs; //pass it when creating an expense
+  RxList<AccountsModel> myAccounts =
+      <AccountsModel>[].obs; //pass it when creating an expense
 
 //==============================
 
@@ -65,9 +69,32 @@ class ExpenseController extends GetxController {
       List<CategoryModel> category = [];
       category = jsonResponse.map((e) => CategoryModel.fromJson(e)).toList();
       categories.value = category;
-      print("${category[1].name}");
+
       fetchSubcategory();
       return category;
+    } on DioException catch (e) {
+      print("Error fetching expenses: ${e.message}");
+      throw Exception('Failed to load expenses: ${e.message}');
+    }
+  }
+
+  //=============================
+  Future<List<AccountsModel>> fetchAccount() async {
+    var token = storage.read('accessToken');
+    try {
+      var response = await dio.get(
+        EndPoint.myAccounts,
+        options: Options(headers: {
+          ApiKeys.auth: "Bearer $token",
+        }),
+      );
+      print("accountssssssssss ${response.data}");
+      List<dynamic> jsonResponse = response.data;
+      List<AccountsModel> accounts = [];
+      accounts = jsonResponse.map((e) => AccountsModel.fromJson(e)).toList();
+      myAccounts.value = accounts;
+      print("accountss numberrrrrrrrr ${accounts.length}");
+      return accounts;
     } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
@@ -102,7 +129,7 @@ class ExpenseController extends GetxController {
       var token = storage.read('accessToken');
       print("the item token is $token");
       var response = await dio.get(
-        EndPoint.listItems,
+        EndPoint.myItems(accountId.value),
         options: Options(
           headers: {
             ApiKeys.auth: "Bearer $token ",
@@ -130,6 +157,7 @@ class ExpenseController extends GetxController {
   createExpense() async {
     try {
       var token = storage.read("accessToken");
+      // var accountId = storage.read('accountId');
       print("token from create expense $token");
       var response = await dio.post(EndPoint.createItem,
           options: Options(
@@ -141,7 +169,7 @@ class ExpenseController extends GetxController {
             ApiKeys.itemName: nameController.text,
             ApiKeys.quantity: quantityController.text,
             ApiKeys.price: priceController.text,
-            ApiKeys.account: 1,
+            ApiKeys.account: accountId.value,
             ApiKeys.subcategory: subCategoryId.value,
 
             // ApiKeys.itemName: nameController.text,

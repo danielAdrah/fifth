@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, unnecessary_string_interpolations
 
 import 'package:animate_do/animate_do.dart';
+import 'package:fifth/model/accounts_model.dart';
 import 'package:fifth/model/expense_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -22,6 +23,10 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final controller = Get.put(ExpenseController());
+  List<String> accounts = [
+    "My Daily spending Account",
+    "Big spending Account",
+  ];
   @override
   void initState() {
     controller.displayExpense();
@@ -58,7 +63,7 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              // controller.displayExpense();
+                              // controller.fetchAccount();
                               Get.to(() => const SettingsView());
                             },
                             icon: Icon(
@@ -70,17 +75,84 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
                     ),
-                    // const SizedBox(height: 5),
                     Center(
                         child: Text("Expenses",
                             style: TextStyle(
                                 color: TColor.white,
                                 fontSize: media.width * 0.05,
                                 fontWeight: FontWeight.w700))),
-                    SizedBox(height: media.width * 0.04),
+                    SizedBox(height: 15),
                     Container(
                         // height: media.width * 0.9,
                         child: Center(child: MyPieChart())),
+                    SizedBox(height: 45),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 80),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: TColor.gray60.withOpacity(0.8),
+                              border: Border.all(
+                                  color: TColor.border.withOpacity(0.5)),
+                              borderRadius: BorderRadius.circular(15)),
+                          width: 100,
+                          child: FutureBuilder<List<AccountsModel>>(
+                              future: controller.fetchAccount(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<List<AccountsModel>> snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Text(
+                                    "Please Wait ...",
+                                    style: TextStyle(color: TColor.white),
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                } else {
+                                  return DropdownButton<String>(
+                                    borderRadius: BorderRadius.circular(25),
+                                    hint: Obx(
+                                      () =>
+                                          controller.accountId.value.isNotEmpty
+                                              ? Text(controller.accountId.value,
+                                                  style: TextStyle(
+                                                      color: TColor.white))
+                                              : Text("Select an account",
+                                                  style: TextStyle(
+                                                      color: TColor.white
+                                                          .withOpacity(0.4))),
+                                    ),
+                                    items: snapshot.data!
+                                        .map((AccountsModel account) {
+                                      return DropdownMenuItem<String>(
+                                        value: account.id.toString(),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              account.name,
+                                              style: TextStyle(
+                                                  color: TColor.white),
+                                            ),
+                                          ],
+                                        ), // Display the category name
+                                      );
+                                    }).toList(),
+                                    isExpanded: true,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 12),
+                                    underline: Text(
+                                      "",
+                                      style: TextStyle(color: TColor.white),
+                                    ),
+                                    onChanged: (String? val) {
+                                      if (val != null) {
+                                        controller.accountId.value = val;
+                                        controller.displayExpense();
+                                      }
+                                    },
+                                  );
+                                }
+                              }),
+                        )),
                   ],
                 ),
               ),

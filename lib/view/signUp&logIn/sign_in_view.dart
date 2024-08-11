@@ -8,9 +8,11 @@ import '../../common/rounded_textField.dart';
 import '../../common/secondary_button.dart';
 import '../../core/api/dio_consumer.dart';
 import '../../theme.dart';
- import '../mainNavBar/main_navbar.dart';
+import '../accounts/account_info.dart';
+import '../mainNavBar/main_navbar.dart';
 import 'sign_up_view.dart';
 import "package:animate_do/animate_do.dart";
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
@@ -34,7 +36,7 @@ class _SigninState extends State<Signin> {
         builder: (controller) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (controller.userState is SignInSuccess) {
-              Get.offAll(const MainNavBar());
+              Get.offAll(const CreatAccount());
             }
             if (controller.userState is SignInFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -150,7 +152,10 @@ class _SigninState extends State<Signin> {
                   //     ? CircularProgressIndicator()
                   //     :
                   controller.userState is SignInLoading
-                      ? CircularProgressIndicator()
+                      ? SpinKitSpinningLines(
+                          color: TColor.primary,
+                          size: 40,
+                        )
                       : FadeInDown(
                           delay: const Duration(milliseconds: 600),
                           curve: Curves.decelerate,
