@@ -243,4 +243,24 @@ class ExpenseController extends GetxController {
           'Failed to load posts: ${e.errModel.non_field_errors.toString()}');
     }
   }
+
+  //============================
+  deleteAccount(int id) async {
+    try {
+      print("from delete account");
+      var token = storage.read("accessToken");
+
+      var response = await dio.delete(
+        EndPoint.deleteAccount(id),
+        options: Options(headers: {
+          ApiKeys.auth: "Bearer $token",
+        }),
+      );
+      print("delete expense ${response.data}");
+      fetchAccount();
+    } on ServerExcption catch (e) {
+      throw Exception(
+          'Failed to load posts: ${e.errModel.non_field_errors.toString()}');
+    }
+  }
 }

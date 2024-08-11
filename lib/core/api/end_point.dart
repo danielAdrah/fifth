@@ -45,6 +45,10 @@ class EndPoint {
     return "charts/update-upcoming/$id";
   }
 
+  static String deleteAccount(id) {
+    return "delete-account/$id";
+  }
+
   static String listItems = "charts/create-item/";
   static String upcomingList = "charts/list-upcoming";
   static String createUpcoming = "charts/create-upcoming/";

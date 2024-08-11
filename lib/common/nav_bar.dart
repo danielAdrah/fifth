@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,18 +24,26 @@ class _NavBarState extends State<NavBar> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: TColor.white,
-              size: 30,
-            )),
-        Text(
-          widget.title,
-          style: TextStyle(color: TColor.white, fontSize: 20),
+        FadeInLeft(
+          delay: Duration(milliseconds: 200),
+          curve: Curves.decelerate,
+          child: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: TColor.white,
+                size: 30,
+              )),
+        ),
+        FadeInDown(
+          delay: Duration(milliseconds: 120),
+          curve: Curves.decelerate,
+          child: Text(
+            widget.title,
+            style: TextStyle(color: TColor.white, fontSize: 20),
+          ),
         ),
         const SizedBox(width: 50),
       ],

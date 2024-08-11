@@ -42,10 +42,15 @@ class UserController extends GetxController {
   UserState userState = UserInitial();
   UserController({required this.api});
   LogInModel? user;
-  ProfileModel? pro;
+
   AccountsModel? account;
   SignUpModel? signUpUser;
-  Rx<ProfileModel>? userProfile;
+  var userProfile = ProfileModel(
+    email: "ali@gmail.com",
+    id: 8,
+    image: "ll",
+    username: "Ali Adrah",
+  ).obs;
   RxBool secure = true.obs;
   RxBool cSecure = true.obs;
   RxBool signInSecure = true.obs;
@@ -158,7 +163,7 @@ class UserController extends GetxController {
     }
   }
 
-  fetchUserInfo() async {
+  Future<ProfileModel> fetchUserInfo() async {
     var token = storage.read('accessToken');
     var userId = storage.read('userId');
     try {
@@ -171,9 +176,10 @@ class UserController extends GetxController {
         ),
       );
       print("hi from profile ${response.data}");
-      List<dynamic> jsonResponse = response.data;
-      pro = ProfileModel.fromJson(response.data);
-      print("after parsing ${pro?.username}");
+      ProfileModel pro = ProfileModel.fromJson(response.data);
+      print("after parsing ${pro.username}");
+      // userProfile.value = pro;
+      return pro;
     } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
