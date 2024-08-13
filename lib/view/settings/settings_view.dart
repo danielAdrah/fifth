@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:ffi';
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,29 +43,35 @@ class _SettingsViewState extends State<SettingsView> {
                 curve: Curves.decelerate,
                 child: Column(
                   children: [
-                    Stack(
-                      children: [
-                        CircleAvatar(
-                          radius: 70,
-                          backgroundImage: AssetImage("assets/img/u1.png"),
-                        ),
-                        Positioned(
-                          right: 10,
-                          bottom: 1,
-                          child: InkWell(
-                            onTap: () {
-                              //choose a pic
-                            },
-                            child: CircleAvatar(
-                              backgroundColor: TColor.white,
-                              radius: 20,
-                              child: Icon(
-                                Icons.camera_alt,
+                    Obx(
+                      () => Stack(
+                        children: [
+                          CircleAvatar(
+                              radius: 70,
+                              backgroundImage: controller.imagePath.value ==
+                                      null
+                                  ? AssetImage("assets/img/u1.png")
+                                  : FileImage(File(controller.imagePath.value!))
+                                      as ImageProvider<Object>?),
+                          Positioned(
+                            right: 10,
+                            bottom: 1,
+                            child: InkWell(
+                              onTap: () {
+                                //choose a pic
+                                controller.uploadImage();
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: TColor.white,
+                                radius: 20,
+                                child: Icon(
+                                  Icons.camera_alt,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 20),
                     Padding(

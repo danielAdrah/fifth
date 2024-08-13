@@ -10,6 +10,8 @@ import '../../../common/date_text_field.dart';
 import '../../../common/primary_button.dart';
 import '../../../common/rounded_textField.dart';
 import '../../../common/rounded_text_area.dart';
+import '../../../common/show_dialoge.dart';
+import '../../../common/success_alert.dart';
 import '../../../controller/limit_controller.dart';
 import '../../../model/categories_model.dart';
 import '../../../theme.dart';
@@ -27,7 +29,12 @@ class _CreateGoalState extends State<CreateLimit> {
   // final TextEditingController limitName = TextEditingController();
   final controller = Get.put(LimitController());
   final controller1 = Get.put(ExpenseController());
-  void clearField() {}
+  void clearField() {
+    controller.amount.clear();
+    controller.startDate.clear();
+    controller.endDate.clear();
+  }
+
   List<String> items = [
     "Food",
     "Drinks",
@@ -159,9 +166,12 @@ class _CreateGoalState extends State<CreateLimit> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: PrimaryButton(
-                              title: "Add",
+                              title: "Create",
                               onPressed: () {
                                 controller.createLimit();
+                                if (controller.limitDone.value) {
+                                  showDoneSuccess(context,"Successfully Created");
+                                }
                                 clearField();
                               }),
                         )

@@ -36,6 +36,9 @@ class LimitController extends GetxController {
   };
   var limitCategory = ''.obs;
   var updatedLimitCategory = ''.obs;
+  RxBool limitLoading = false.obs;
+  RxBool limitDone = false.obs;
+  RxBool limitUpdate = false.obs;
   RxList<LimitsModel> limitsList = <LimitsModel>[].obs;
   var oneLimit = IndividualLimitModel(
           category: 1,
@@ -55,6 +58,7 @@ class LimitController extends GetxController {
     var token = storage.read('accessToken');
 
     try {
+      limitLoading.value = true;
       var response = await dio.get(
         EndPoint.showLimits,
         options: Options(
@@ -69,8 +73,10 @@ class LimitController extends GetxController {
       limits = jsonResponse.map((e) => LimitsModel.fromJson(e)).toList();
       print("after parsing");
       limitsList.value = limits;
+      limitLoading.value = false;
       return limits;
     } on DioException catch (e) {
+      limitLoading.value = false;
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }
@@ -82,6 +88,7 @@ class LimitController extends GetxController {
     var id = storage.read("userId");
     print("id from limit $id");
     try {
+      limitDone.value = true;
       var response = await dio.post(
         EndPoint.createLimit,
         options: Options(
@@ -100,8 +107,10 @@ class LimitController extends GetxController {
       );
       print("the idcategory for the limit issssssssssss${limitCategory.value}");
       print("from create limit ${response.data}");
+      limitDone.value = false;
       await displayLimits();
     } on DioException catch (e) {
+      limitDone.value = false;
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }
@@ -133,6 +142,7 @@ class LimitController extends GetxController {
     var token = storage.read("accessToken");
     var userId = storage.read("userId");
     try {
+      limitUpdate.value = true;
       var response = await dio.put(
         EndPoint.updateLimit(id),
         options: Options(
@@ -150,8 +160,10 @@ class LimitController extends GetxController {
         },
       );
       print("the updated limit is ${response.data}");
+      limitUpdate.value = false;
       await displayLimits();
     } on DioException catch (e) {
+      limitUpdate.value = false;
       print("Error fetching uodated expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }

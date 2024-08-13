@@ -37,11 +37,14 @@ class UpcomingController extends GetxController {
   RxList<UpcomingExpenseModel> upcomingList = <UpcomingExpenseModel>[].obs;
   var subcategoryUpcomingId = "".obs;
   var updatedSubcategoryUpcomingId = "".obs;
-
+  RxBool upcomingLoading = false.obs;
+  RxBool upcomingDone = false.obs;
+  RxBool upcomingUpdate = false.obs;
   Future<List<UpcomingExpenseModel>> fetchUpcomingExpenses() async {
     var token = storage.read('accessToken');
     print("0");
     try {
+      upcomingLoading.value = true;
       var response = await dio.get(
         // EndPoint.upcomingList,
         "charts/list-upcoming",
@@ -58,8 +61,10 @@ class UpcomingController extends GetxController {
           jsonResponse.map((e) => UpcomingExpenseModel.fromJson(e)).toList();
 
       upcomingList.value = upcoming;
+      upcomingLoading.value = false;
       return upcoming;
     } on DioException catch (e) {
+      upcomingLoading.value = false;
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }
@@ -70,6 +75,9 @@ class UpcomingController extends GetxController {
     var token = storage.read('accessToken');
     var userId = storage.read("userId");
     try {
+      upcomingDone.value = true;
+      // done = false;
+      update();
       var response = await dio.post(
           // EndPoint.createUpcoming,
           "charts/create-upcoming/",
@@ -88,7 +96,13 @@ class UpcomingController extends GetxController {
       print("from ceate upcome ${response.data}");
       print("loooooooooook ${subcategoryUpcomingId.value}");
       await fetchUpcomingExpenses();
+      upcomingDone.value = false;
+
+      update();
     } on DioException catch (e) {
+      upcomingDone.value = false;
+
+      update();
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }
@@ -119,8 +133,8 @@ class UpcomingController extends GetxController {
   updateUpcoming(id) async {
     var token = storage.read('accessToken');
     var userId = storage.read("userId");
-    print("id ${userId}");
     try {
+      upcomingUpdate.value = true;
       var response = await dio.put(EndPoint.updateUpcoming(id),
           options: Options(
             headers: {
@@ -133,7 +147,7 @@ class UpcomingController extends GetxController {
             // ApiKeys.price: newupcomePrice.text,
             // ApiKeys.date: newupcomeDate.text,
             // ApiKeys.subcategory: updatedSubcategoryUpcomingId.value,
-            ApiKeys.user: 8,
+            ApiKeys.user: userId,
             ApiKeys.name: newupcomeName.text,
             ApiKeys.price: newupcomePrice.text,
             ApiKeys.date: newupcomeDate.text,
@@ -141,8 +155,10 @@ class UpcomingController extends GetxController {
           });
       print("from update upcome ${response.data}");
       print("loooooooooook ${updatedSubcategoryUpcomingId.value}");
+      upcomingUpdate.value = false;
       await fetchUpcomingExpenses();
     } on DioException catch (e) {
+      upcomingUpdate.value = false;
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }

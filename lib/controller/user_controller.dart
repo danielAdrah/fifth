@@ -18,6 +18,7 @@ import "../core/api/end_point.dart";
 import "../model/login_model.dart";
 import "../model/signup_model.dart";
 import "package:get_storage/get_storage.dart";
+import 'package:image_picker/image_picker.dart';
 
 class UserController extends GetxController {
   final ApiConsumer api;
@@ -42,6 +43,12 @@ class UserController extends GetxController {
   UserState userState = UserInitial();
   UserController({required this.api});
   LogInModel? user;
+ Rx<XFile?> image = Rx<XFile?>(null);
+  Rx<String?> imagePath = Rx<String?>(null);
+  final imagePicker = ImagePicker();
+  String get profileImageUrl {
+     return 'assets/img/u1.png';
+  }
 
   AccountsModel? account;
   SignUpModel? signUpUser;
@@ -49,7 +56,7 @@ class UserController extends GetxController {
     email: "ali@gmail.com",
     id: 8,
     image: "ll",
-    username: "Ali Adrah",
+    username: " Adrah",
   ).obs;
   RxBool secure = true.obs;
   RxBool cSecure = true.obs;
@@ -180,27 +187,34 @@ class UserController extends GetxController {
       print("after parsing ${pro.username}");
       // userProfile.value = pro;
       userProfile.value = pro;
+      print("testingggggg ${userProfile.value.username}");
       return pro;
     } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }
   }
+
+  //==========================
+  @override
+  void onInit() {
+    super.onInit();
+    // Load the image path from storage when the controller is initialized
+    imagePath.value = storage.read('imagePath');
+  }
+
+  uploadImage() async {
+    var pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      imagePath.value = pickedImage.path;
+      storage.write('imagePath', pickedImage.path);
+     } else {}
+  }
 }
 
-// XFile? _pickedImage;
-//   RxString _profileImageUrl = "assets/img/u1.png".obs;
 
-//   Future<void> pickImage() async {
-//     final ImagePicker _picker = ImagePicker();
-//     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-//     if (image != null) {
-//       setState(() {
-//         _pickedImage = image;
-//         _profileImageUrl.value = image.path;
-//       });
-//     }
-//   }
+  
+  
 
 // backgroundImage: AssetImage(controller._profileImageUrl.value)

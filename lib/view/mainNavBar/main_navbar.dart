@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import '../../common/fali_alert.dart';
 import '../../theme.dart';
 import '../add_expenses/add_expense_view.dart';
-import '../add_expenses/choose_main_category.dart';
 import '../charts_view/chart_view.dart';
 import '../goals/component/create_goal.dart';
 import '../goals/goals_view.dart';
@@ -231,7 +230,7 @@ _showawesome(BuildContext context) {
       return ZoomIn(
         delay: Duration(milliseconds: 150),
         curve: Curves.fastLinearToSlowEaseIn,
-        child: FailAlert(width: width, height: height),
+        child: FailAlert(),
       );
     },
   );

@@ -9,6 +9,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import '../../../common/date_text_field.dart';
 import '../../../common/primary_button.dart';
 import '../../../common/rounded_textField.dart';
+import '../../../common/show_dialoge.dart';
 import '../../../controller/expense_controller.dart';
 import '../../../theme.dart';
 import '../../../widgets/methods.dart';
@@ -225,6 +226,10 @@ class _UpdateUpcomingState extends State<UpdateUpcoming> {
                               title: "Update",
                               onPressed: () {
                                 controller.updateUpcoming(widget.id);
+                                if (controller.upcomingUpdate.value) {
+                                  showDoneSuccess(
+                                      context, "Successfully Updated");
+                                }
                                 clearField();
                               }),
                         )

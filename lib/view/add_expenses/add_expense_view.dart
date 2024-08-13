@@ -1,19 +1,14 @@
-// ignore_for_file: prefer_const_constructors, invalid_use_of_protected_member
+// ignore_for_file: prefer_const_constructors, invalid_use_of_protected_member, unused_local_variable
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 
-import '../../common/custom_dialog.dart';
 import '../../common/fali_alert.dart';
-import '../../common/success_alert.dart';
+import '../../common/show_dialoge.dart';
 import '../../controller/expense_controller.dart';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
-import '../../controller/user_state.dart';
-import '../../model/categories_model.dart';
-import '../../model/subcategory_model.dart';
 import '../../theme.dart';
 import '../../common/rounded_textField.dart';
 import '../../common/primary_button.dart';
@@ -174,12 +169,19 @@ class _AddExpenseViewState extends State<AddExpenseView> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 40),
                           child: PrimaryButton(
-                              title: "Add",
+                              title: "Create",
                               onPressed: () {
                                 controller.createExpense();
-                                if (controller.done) {
-                                  _showawesome(context);
+                                if (controller.expenseDone.value) {
+                                  showDoneSuccess(
+                                      context, "Successfully Created");
                                 }
+                                // if (controller.nameController.text.isEmpty &&
+                                //     controller
+                                //         .quantityController.text.isEmpty &&
+                                //     controller.priceController.text.isEmpty) {
+                                //   _showawesomeFail(context);
+                                // }
 
                                 clearField();
                               }),
@@ -197,7 +199,7 @@ class _AddExpenseViewState extends State<AddExpenseView> {
   }
 }
 
-_showawesome(BuildContext context) {
+_showawesomeFail(BuildContext context) {
   showDialog(
     context: context,
     barrierDismissible:
@@ -206,7 +208,7 @@ _showawesome(BuildContext context) {
       return ZoomIn(
         delay: Duration(milliseconds: 150),
         curve: Curves.fastLinearToSlowEaseIn,
-        child: SuccessAlert(),
+        child: FailAlert(),
       );
     },
   );

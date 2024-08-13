@@ -55,6 +55,10 @@ class ExpenseController extends GetxController {
   var accountId = ''.obs;
   var subCategoryId = "".obs;
   var updatedSubCategoryId = "".obs;
+  RxBool expenseLoading = false.obs;
+  RxBool expenseDone = false.obs;
+  RxBool expenseFail = false.obs;
+  RxBool expenseUpdated = false.obs;
   var pie = PiechartModel(category: "", sum: 0).obs;
   RxList<ExpenseModel> expenses = <ExpenseModel>[].obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
@@ -133,6 +137,7 @@ class ExpenseController extends GetxController {
 
   Future<List<ExpenseModel>> displayExpense() async {
     try {
+      expenseLoading.value = true;
       var token = storage.read('accessToken');
       print("the item token is $token");
       var response = await dio.get(
@@ -143,6 +148,7 @@ class ExpenseController extends GetxController {
           },
         ),
       );
+
       print("the listtttttttttt response is ${response.data}");
       List<dynamic> jsonResponse = response.data;
       print("look from displayData $jsonResponse");
@@ -152,8 +158,11 @@ class ExpenseController extends GetxController {
       storage.write("expId", expId);
 
       expenses.value = expense;
+      expenseLoading.value = false;
       return expense;
     } on DioException catch (e) {
+      expenseLoading.value = false;
+
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }
@@ -163,6 +172,7 @@ class ExpenseController extends GetxController {
 
   createExpense() async {
     try {
+      expenseDone.value = true;
       var token = storage.read("accessToken");
       // var accountId = storage.read('accountId');
       print("token from create expense $token");
@@ -189,13 +199,13 @@ class ExpenseController extends GetxController {
       print("newwwwwwwwwwwww ${subCategoryId.value}");
       userState = SuccessCreated();
       update();
-      created.value = true;
-      done = true;
-      update();
+      expenseDone.value = false;
       await displayExpense();
       await mainPieChart();
       await controller.displayLimits();
     } on DioException catch (e) {
+      expenseDone.value = false;
+      expenseFail.value = true;
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');
     }
@@ -204,6 +214,7 @@ class ExpenseController extends GetxController {
   //===================================
   updateExpense(int id) async {
     try {
+      expenseUpdated.value = true;
       var token = storage.read("accessToken");
       var response = await dio.put(
         EndPoint.updateExpense(id),
@@ -217,7 +228,7 @@ class ExpenseController extends GetxController {
           // ApiKeys.itemName: newNameController.text,
           // ApiKeys.quantity: newQuantityController.text,
           // ApiKeys.price: newPriceController.text,
-          ApiKeys.account: 1,
+          ApiKeys.account: accountId.value,
           ApiKeys.itemName: newNameController.text,
           ApiKeys.quantity: newQuantityController.text,
           ApiKeys.price: newPriceController.text,
@@ -225,8 +236,10 @@ class ExpenseController extends GetxController {
         },
       );
       print("the updated expense is ${response.data}");
+      expenseUpdated.value = false;
       await displayExpense();
     } on ServerExcption catch (e) {
+      expenseUpdated.value = false;
       throw Exception(
           'Failed to load posts: ${e.errModel.non_field_errors.toString()}');
     }
@@ -286,11 +299,8 @@ class ExpenseController extends GetxController {
       List<dynamic> jsonResponse = response.data;
       List<PiechartModel> pieData =
           jsonResponse.map((e) => PiechartModel.fromJson(e)).toList();
-       print("after parsing");
+      print("after parsing");
       pieInfo.value = pieData;
-      for (var data in pieData) {
-        piechartData.value[data.category] = data.sum.toDouble();
-      }
     } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');

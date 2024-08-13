@@ -9,8 +9,10 @@ import 'package:get/get.dart';
 import '../theme.dart';
 
 class SuccessAlert extends StatelessWidget {
+  final String text;
   const SuccessAlert({
     super.key,
+    required this.text,
   });
 
   @override
@@ -60,7 +62,7 @@ class SuccessAlert extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                "Seccussfuly Added",
+                text,
                 style: TextStyle(
                     color: TColor.white,
                     fontSize: 20,

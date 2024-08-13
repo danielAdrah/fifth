@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:animate_do/animate_do.dart';
+import 'package:fifth/common/show_dialoge.dart';
 import 'package:fifth/controller/expense_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -216,6 +217,10 @@ class _UpdateLimitState extends State<UpdateLimit> {
                               title: "Update",
                               onPressed: () {
                                 controller.updateLimit(widget.id);
+                                if (controller.limitUpdate.value) {
+                                  showDoneSuccess(
+                                      context, "Successfully Updated");
+                                }
                                 clearField();
                               }),
                         )

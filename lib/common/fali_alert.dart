@@ -11,15 +11,12 @@ import '../theme.dart';
 class FailAlert extends StatelessWidget {
   const FailAlert({
     super.key,
-    required this.width,
-    required this.height,
   });
-
-  final double width;
-  final double height;
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return AlertDialog(
       elevation: 5,
       shadowColor: TColor.border,

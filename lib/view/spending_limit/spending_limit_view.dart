@@ -5,6 +5,7 @@ import 'package:fifth/controller/limit_controller.dart';
 import 'package:fifth/view/spending_limit/components/update_limit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 import '../../theme.dart';
@@ -75,70 +76,76 @@ class _SpendingLimitState extends State<SpendingLimit> {
       ),
       body: SafeArea(
           child: Obx(
-        () => controller.limitsList.isEmpty
-            ? ZoomIn(
-                delay: Duration(milliseconds: 100),
-                curve: Curves.decelerate,
-                child: Center(
-                  child: Text("No limits yet \n Please add a limit first",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: TColor.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18)),
-                ),
+        () => controller.limitLoading.value
+            ? SpinKitSpinningLines(
+                color: TColor.primary,
+                size: 40,
               )
-            : Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: controller.limitsList.length,
-                  itemBuilder: ((context, index) {
-                    var lm = controller.limitsList[index];
-                    return Slidable(
-                      endActionPane:
-                          ActionPane(motion: const StretchMotion(), children: [
-                        SlidableAction(
-                          onPressed: (context) {
-                            controller.deleteLimit(lm.id);
-                          },
-                          icon: Icons.delete,
-                          backgroundColor: Colors.red,
-                          borderRadius: BorderRadius.circular(5),
-                          spacing: 2,
-                        ),
-                        SlidableAction(
-                          onPressed: (context) {
-                            Get.to(UpdateLimit(id: lm.id));
-                          },
-                          icon: Icons.edit,
-                          backgroundColor: Colors.green,
-                          borderRadius: BorderRadius.circular(5),
-                          spacing: 2,
-                        ),
-                      ]),
-                      child: FadeInUp(
-                        delay: Duration(milliseconds: 150),
-                        curve: Curves.decelerate,
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(LimitDetail());
-                            controller.fetchLimit(lm.id);
-                          },
-                          child: LimitTile(
-                            limitName: "${lm.categoryName}",
-                            totalAmount: "${lm.limit}",
-                            spendAmount: "${lm.currentSpending}",
-                            remainedAmount: "${lm.remainingAmount}",
-                            progressValue:
-                                (lm.currentSpending / lm.limit) * 100,
+            : controller.limitsList.isEmpty
+                ? ZoomIn(
+                    delay: Duration(milliseconds: 100),
+                    curve: Curves.decelerate,
+                    child: Center(
+                      child: Text("No limits yet \n Please add a limit first",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: TColor.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18)),
+                    ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: controller.limitsList.length,
+                      itemBuilder: ((context, index) {
+                        var lm = controller.limitsList[index];
+                        return Slidable(
+                          endActionPane: ActionPane(
+                              motion: const StretchMotion(),
+                              children: [
+                                SlidableAction(
+                                  onPressed: (context) {
+                                    controller.deleteLimit(lm.id);
+                                  },
+                                  icon: Icons.delete,
+                                  backgroundColor: Colors.red,
+                                  borderRadius: BorderRadius.circular(5),
+                                  spacing: 2,
+                                ),
+                                SlidableAction(
+                                  onPressed: (context) {
+                                    Get.to(UpdateLimit(id: lm.id));
+                                  },
+                                  icon: Icons.edit,
+                                  backgroundColor: Colors.green,
+                                  borderRadius: BorderRadius.circular(5),
+                                  spacing: 2,
+                                ),
+                              ]),
+                          child: FadeInUp(
+                            delay: Duration(milliseconds: 150),
+                            curve: Curves.decelerate,
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(LimitDetail());
+                                controller.fetchLimit(lm.id);
+                              },
+                              child: LimitTile(
+                                limitName: "${lm.categoryName}",
+                                totalAmount: "${lm.limit}",
+                                spendAmount: "${lm.currentSpending}",
+                                remainedAmount: "${lm.remainingAmount}",
+                                progressValue:
+                                    (lm.currentSpending / lm.limit) * 100,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              ),
+                        );
+                      }),
+                    ),
+                  ),
       )),
     );
   }

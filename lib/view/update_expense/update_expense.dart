@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
+import '../../common/show_dialoge.dart';
 import '../../controller/expense_controller.dart';
 
 // import 'package:awesome_dialog/awesome_dialog.dart';
@@ -223,6 +224,10 @@ class _UpdateExpenseState extends State<UpdateExpense> {
                               title: "Update",
                               onPressed: () {
                                 controller.updateExpense(widget.id);
+                                if (controller.expenseUpdated.value) {
+                                  showDoneSuccess(
+                                      context, "Successfully Updated");
+                                }
                                 clearField();
                               }),
                         )

@@ -9,6 +9,8 @@ import 'package:dropdown_search/dropdown_search.dart';
 import '../../../common/date_text_field.dart';
 import '../../../common/primary_button.dart';
 import '../../../common/rounded_textField.dart';
+import '../../../common/show_dialoge.dart';
+import '../../../common/success_alert.dart';
 import '../../../controller/expense_controller.dart';
 import '../../../theme.dart';
 import '../../../widgets/methods.dart';
@@ -295,6 +297,9 @@ class _CreateIncomeState extends State<CreateIncome> {
                               onPressed: () {
                                 controller.createUpcoming();
                                 clearField();
+                                if (controller.upcomingDone.value) {
+                                  showDoneSuccess(context,"Successfully Created");
+                                }
                               }),
                         )
                       ],
@@ -308,6 +313,8 @@ class _CreateIncomeState extends State<CreateIncome> {
       ),
     );
   }
+
+  
 
   Future<void> showDate() async {
     DateTime? picked = await showDatePicker(
