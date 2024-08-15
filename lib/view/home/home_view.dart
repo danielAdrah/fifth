@@ -69,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              controller1.fetchUserInfo();
+                              controller.mainPieChart();
                               Get.to(() => const SettingsView());
                             },
                             icon: Icon(
@@ -89,8 +89,18 @@ class _HomeViewState extends State<HomeView> {
                                 fontWeight: FontWeight.w700))),
                     SizedBox(height: 15),
                     Container(
-                        // height: media.width * 0.9,
-                        child: Center(child: MyPieChart())),
+                      // height: media.width * 0.9,
+                      child: Center(
+                        child: controller.pieLoading.value
+                            ? Text("Please wait",
+                                style: TextStyle(color: TColor.white))
+                            : FadeInDown(
+                                delay: Duration(milliseconds: 500),
+                                curve: Curves.decelerate,
+                                child: MyPieChart(),
+                              ),
+                      ),
+                    ),
                     SizedBox(height: 45),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 80),

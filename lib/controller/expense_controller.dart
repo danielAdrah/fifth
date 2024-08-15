@@ -55,10 +55,12 @@ class ExpenseController extends GetxController {
   var accountId = ''.obs;
   var subCategoryId = "".obs;
   var updatedSubCategoryId = "".obs;
+  String cat = "Transport";
   RxBool expenseLoading = false.obs;
   RxBool expenseDone = false.obs;
   RxBool expenseFail = false.obs;
   RxBool expenseUpdated = false.obs;
+  RxBool pieLoading = false.obs;
   var pie = PiechartModel(category: "", sum: 0).obs;
   RxList<ExpenseModel> expenses = <ExpenseModel>[].obs;
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
@@ -203,6 +205,7 @@ class ExpenseController extends GetxController {
       await displayExpense();
       await mainPieChart();
       await controller.displayLimits();
+      await subPiechart();
     } on DioException catch (e) {
       expenseDone.value = false;
       expenseFail.value = true;
@@ -238,6 +241,8 @@ class ExpenseController extends GetxController {
       print("the updated expense is ${response.data}");
       expenseUpdated.value = false;
       await displayExpense();
+      await mainPieChart();
+      await subPiechart();
     } on ServerExcption catch (e) {
       expenseUpdated.value = false;
       throw Exception(
@@ -259,6 +264,8 @@ class ExpenseController extends GetxController {
       );
       print("delete expense ${response.data}");
       displayExpense();
+      mainPieChart();
+      subPiechart();
     } on ServerExcption catch (e) {
       throw Exception(
           'Failed to load posts: ${e.errModel.non_field_errors.toString()}');
@@ -289,6 +296,7 @@ class ExpenseController extends GetxController {
   mainPieChart() async {
     var token = storage.read("accessToken");
     try {
+      pieLoading.value = true;
       var response = await dio.get(EndPoint.displayPiechart(accountId.value),
           options: Options(
             headers: {
@@ -301,6 +309,30 @@ class ExpenseController extends GetxController {
           jsonResponse.map((e) => PiechartModel.fromJson(e)).toList();
       print("after parsing");
       pieInfo.value = pieData;
+      pieLoading.value = false;
+    } on DioException catch (e) {
+      pieLoading.value = false;
+      print("Error fetching expenses: ${e.message}");
+      throw Exception('Failed to load expenses: ${e.message}');
+    }
+  }
+
+  //==========================
+  subPiechart() async {
+    var token = storage.read("accessToken");
+    try {
+      var response = await dio.post(
+        EndPoint.fetchSubPiechart(accountId.value),
+        options: Options(
+          headers: {
+            ApiKeys.auth: "Bearer $token",
+          },
+        ),
+        data: {
+          ApiKeys.category: cat,
+        },
+      );
+      print("from subpiechat ${response.data}");
     } on DioException catch (e) {
       print("Error fetching expenses: ${e.message}");
       throw Exception('Failed to load expenses: ${e.message}');

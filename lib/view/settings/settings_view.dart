@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 // import 'package:get/get.dart';
 import '../../common/nav_bar.dart';
 import '../../common/settings_value.dart';
+import '../../controller/expense_controller.dart';
 import '../../core/api/dio_consumer.dart';
 import '../../theme.dart';
 import '../../controller/user_controller.dart';
@@ -27,6 +28,7 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
+  final cont = Get.put(ExpenseController());
   UserController controller =
       Get.put(UserController(api: DioConsumer(dio: Dio())));
   @override
@@ -117,7 +119,7 @@ class _SettingsViewState extends State<SettingsView> {
                                                   color: TColor.white),
                                             ),
                                             onTap2: () {
-                                              controller.fetchUserInfo();
+                                              cont.subPiechart();
                                             },
                                           ),
                                           const SizedBox(height: 5),

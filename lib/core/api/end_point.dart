@@ -52,6 +52,9 @@ class EndPoint {
   static String displayPiechart(id) {
     return "charts/pie-categories/$id";
   }
+  static String fetchSubPiechart(id){
+    return "charts/pie-subcategories/$id/";
+  }
 
   static String listItems = "charts/create-item/";
   static String upcomingList = "charts/list-upcoming";

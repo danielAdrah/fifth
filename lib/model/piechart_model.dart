@@ -10,7 +10,7 @@ String piechartModelToJson(List<PiechartModel> data) => json.encode(List<dynamic
 
 class PiechartModel {
     String category;
-    int sum;
+    double sum;
 
     PiechartModel({
         required this.category,
@@ -19,7 +19,7 @@ class PiechartModel {
 
     factory PiechartModel.fromJson(Map<String, dynamic> json) => PiechartModel(
         category: json["category"],
-        sum: json["sum"],
+        sum: (json['sum'] as int).toDouble()
     );
 
     Map<String, dynamic> toJson() => {
