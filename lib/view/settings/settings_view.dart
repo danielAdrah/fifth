@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations
 
 import 'dart:ffi';
 import 'dart:io';
@@ -29,8 +29,18 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   final cont = Get.put(ExpenseController());
+
   UserController controller =
       Get.put(UserController(api: DioConsumer(dio: Dio())));
+
+  @override
+  void initState() {
+    super.initState();
+    cont.homeSubPiechart();
+    cont.transportsubPiechart();
+    cont.foodSubPiechart();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,7 +129,8 @@ class _SettingsViewState extends State<SettingsView> {
                                                   color: TColor.white),
                                             ),
                                             onTap2: () {
-                                              cont.subPiechart();
+                                              cont.homeSubPiechart();
+                                              cont.transportsubPiechart();
                                             },
                                           ),
                                           const SizedBox(height: 5),
@@ -145,32 +156,6 @@ class _SettingsViewState extends State<SettingsView> {
                                             onTap2: () {},
                                           ),
                                           const SizedBox(height: 10),
-                                          InkWell(
-                                            onTap: () {},
-                                            child: Container(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8,
-                                                  bottom: 8,
-                                                  right: 15,
-                                                  left: 15),
-                                              decoration: BoxDecoration(
-                                                  color: TColor.gray30
-                                                      .withOpacity(0.2),
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  border: Border.all(
-                                                      color: TColor.border
-                                                          .withOpacity(0.15))),
-                                              child: Text(
-                                                "Edit Profile",
-                                                style: TextStyle(
-                                                    color: TColor.white,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                            ),
-                                          ),
                                         ],
                                       ),
                                     )),

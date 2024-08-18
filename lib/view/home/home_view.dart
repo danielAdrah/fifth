@@ -89,18 +89,17 @@ class _HomeViewState extends State<HomeView> {
                                 fontWeight: FontWeight.w700))),
                     SizedBox(height: 15),
                     Container(
-                      // height: media.width * 0.9,
-                      child: Center(
+                        // height: media.width * 0.9,
+                        child: Obx(
+                      () => Center(
                         child: controller.pieLoading.value
-                            ? Text("Please wait",
-                                style: TextStyle(color: TColor.white))
-                            : FadeInDown(
-                                delay: Duration(milliseconds: 500),
-                                curve: Curves.decelerate,
-                                child: MyPieChart(),
-                              ),
+                            ? SpinKitSpinningLines(
+                                color: TColor.primary,
+                                size: 40,
+                              )
+                            : MyPieChart(),
                       ),
-                    ),
+                    )),
                     SizedBox(height: 45),
                     Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 80),
@@ -178,65 +177,77 @@ class _HomeViewState extends State<HomeView> {
               ),
               const SizedBox(height: 20),
               Obx(
-                () => controller.expenseLoading.value
-                    ? SpinKitSpinningLines(
-                        color: TColor.primary,
-                        size: 40,
-                      )
-                    : controller.expenses.isEmpty
-                        ? Center(
-                            child: Text(
-                            "No Expenses Added Yet \n Please Add An Expense First",
-                            style: TextStyle(
-                                color: TColor.white,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ))
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: controller.expenses.length,
-                            itemBuilder: ((context, index) {
-                              var data = controller.expenses[index];
-                              return FadeInDown(
-                                delay: Duration(milliseconds: 500),
-                                curve: Curves.decelerate,
-                                child: Slidable(
-                                  endActionPane: ActionPane(
-                                      motion: const StretchMotion(),
-                                      children: [
-                                        SlidableAction(
-                                          onPressed: (context) {
-                                            controller.deleteExpense(data.id);
-                                          },
-                                          icon: Icons.delete,
-                                          backgroundColor: Colors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          spacing: 2,
-                                        ),
-                                        SlidableAction(
-                                          onPressed: (context) {
-                                            Get.to(UpdateExpense(id: data.id));
-                                          },
-                                          icon: Icons.edit,
-                                          backgroundColor: Colors.green,
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          spacing: 2,
-                                        ),
-                                      ]),
-                                  child: MyListTile(
-                                      img: "${data.categoryIcon}",
-                                      type:
-                                          "${data.subcategoryName ?? 'Unkown'}",
-                                      title: "${data.itemName}",
-                                      price: "${data.price}",
-                                      date: data.created),
-                                ),
-                              );
-                            }),
-                          ),
+                () => controller.accountId.value.isEmpty
+                    ? Center(
+                        child: Text(
+                        "Please first selecet an account\n From the dropdown menu ",
+                        style: TextStyle(
+                            color: TColor.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17),
+                        textAlign: TextAlign.center,
+                      ))
+                    : controller.expenseLoading.value
+                        ? SpinKitSpinningLines(
+                            color: TColor.primary,
+                            size: 40,
+                          )
+                        : controller.expenses.isEmpty
+                            ? Center(
+                                child: Text(
+                                "No Expenses Added Yet \n Please Add An Expense First",
+                                style: TextStyle(
+                                    color: TColor.white,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ))
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: controller.expenses.length,
+                                itemBuilder: ((context, index) {
+                                  var data = controller.expenses[index];
+                                  return FadeInDown(
+                                    delay: Duration(milliseconds: 500),
+                                    curve: Curves.decelerate,
+                                    child: Slidable(
+                                      endActionPane: ActionPane(
+                                          motion: const StretchMotion(),
+                                          children: [
+                                            SlidableAction(
+                                              onPressed: (context) {
+                                                controller
+                                                    .deleteExpense(data.id);
+                                              },
+                                              icon: Icons.delete,
+                                              backgroundColor: Colors.red,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              spacing: 2,
+                                            ),
+                                            SlidableAction(
+                                              onPressed: (context) {
+                                                Get.to(
+                                                    UpdateExpense(id: data.id));
+                                              },
+                                              icon: Icons.edit,
+                                              backgroundColor: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              spacing: 2,
+                                            ),
+                                          ]),
+                                      child: MyListTile(
+                                          img: "${data.categoryIcon}",
+                                          type:
+                                              "${data.subcategoryName ?? 'Unkown'}",
+                                          title: "${data.itemName}",
+                                          price: "${data.price}",
+                                          date: data.created),
+                                    ),
+                                  );
+                                }),
+                              ),
               ),
               SizedBox(height: 50),
             ],

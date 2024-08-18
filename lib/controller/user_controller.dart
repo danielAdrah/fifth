@@ -43,20 +43,20 @@ class UserController extends GetxController {
   UserState userState = UserInitial();
   UserController({required this.api});
   LogInModel? user;
- Rx<XFile?> image = Rx<XFile?>(null);
+  Rx<XFile?> image = Rx<XFile?>(null);
   Rx<String?> imagePath = Rx<String?>(null);
   final imagePicker = ImagePicker();
   String get profileImageUrl {
-     return 'assets/img/u1.png';
+    return 'assets/img/u1.png';
   }
 
   AccountsModel? account;
   SignUpModel? signUpUser;
   var userProfile = ProfileModel(
-    email: "ali@gmail.com",
+    email: "nana@gmail.com",
     id: 8,
     image: "ll",
-    username: " Adrah",
+    username: " Nadia",
   ).obs;
   RxBool secure = true.obs;
   RxBool cSecure = true.obs;
@@ -209,7 +209,7 @@ class UserController extends GetxController {
     if (pickedImage != null) {
       imagePath.value = pickedImage.path;
       storage.write('imagePath', pickedImage.path);
-     } else {}
+    } else {}
   }
 }
 

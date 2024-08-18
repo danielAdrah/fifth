@@ -38,16 +38,19 @@ class _MyPieChartState extends State<MyPieChart> {
     ];
     final gradientList = <List<Color>>[
       [
-        Color(0xFF00b4db),
-        Color(0xFF0083b0),
+        Color(0xFF17a2b8),
+        Color(0xFF0d9488),
+        Color(0xFF0f766e),
       ],
       [
-        Color(0xFFb24592),
-        Color(0xFFf15f79),
+        Color(0xFFc6d8ff),
+        Color(0xFFa855f7),
+        Color(0xFF9333ea),
       ],
       [
-        Color(0xFFa8ff78),
-        Color(0xFF78ffd6),
+        Color(0xFFf59e0b),
+        Color(0xFFef4444),
+        Color(0xFFfb923c),
       ]
     ];
     return Padding(
@@ -69,11 +72,11 @@ class _MyPieChartState extends State<MyPieChart> {
             ringStrokeWidth: 30,
             gradientList: gradientList,
             chartLegendSpacing: 40,
-            centerText:
-                controller.pieInfo.isEmpty ? "Selecet an account\n first" : "",
-            centerTextStyle: TextStyle(
-                color:
-                    controller.pieInfo.isEmpty ? TColor.gray50 : TColor.gray),
+            // centerText:
+            //     controller.pieInfo.isEmpty ? "Selecet an account\n first" : "",
+            // centerTextStyle: TextStyle(
+            //     color:
+            //         controller.pieInfo.isEmpty ? TColor.gray50 : TColor.gray),
             legendOptions: LegendOptions(
                 showLegends: controller.pieInfo.isEmpty ? false : true,
                 showLegendsInRow: false,

@@ -2,7 +2,9 @@
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../controller/expense_controller.dart';
 import '../../model/pie_chart_model.dart';
 import '../../theme.dart';
 import 'components/piechart.dart';
@@ -15,6 +17,15 @@ class SummaryView extends StatefulWidget {
 }
 
 class _SummaryViewState extends State<SummaryView> {
+  final cont = Get.put(ExpenseController());
+  @override
+  void initState() {
+    super.initState();
+    cont.homeSubPiechart();
+    cont.transportsubPiechart();
+    cont.foodSubPiechart();
+  }
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -34,7 +45,8 @@ class _SummaryViewState extends State<SummaryView> {
         backgroundColor: Colors.transparent,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
+          child: Obx(
+        () => SingleChildScrollView(
           child: FadeInUp(
             delay: Duration(milliseconds: 200),
             curve: Curves.decelerate,
@@ -64,24 +76,35 @@ class _SummaryViewState extends State<SummaryView> {
                             fontWeight: FontWeight.w400),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      // height: media.width * 0.8,
-                      decoration: BoxDecoration(
-                        color: TColor.gray50.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: SizedBox(
-                        child: SubPieChart(
-                          pieChartData: [
-                            PieChartData("Taxi", 32),
-                            PieChartData(" Train", 30),
-                            PieChartData("Bus", 45),
-                          ],
-                        ),
-                      ),
-                    ),
+                    cont.transportSubPieInfo.value.isEmpty
+                        ? Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 80),
+                            decoration: BoxDecoration(
+                              color: TColor.gray50.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Text(
+                                "There are no transport expenses in this account ",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: TColor.white, fontSize: 17)),
+                          )
+                        : Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            // height: media.width * 0.8,
+                            decoration: BoxDecoration(
+                              color: TColor.gray50.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: SizedBox(
+                              child: SubPieChart(
+                                category: "Transport",
+                              ),
+                            ),
+                          ),
                   ],
                 ),
                 SizedBox(height: 15),
@@ -99,24 +122,31 @@ class _SummaryViewState extends State<SummaryView> {
                             fontWeight: FontWeight.w400),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      // height: media.width * 0.8,
-                      decoration: BoxDecoration(
-                        color: TColor.gray50.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: SizedBox(
-                        child: SubPieChart(
-                          pieChartData: [
-                            PieChartData("Fast Food", 40),
-                            PieChartData(" Grocery", 70),
-                            PieChartData("Sweets", 25),
-                          ],
-                        ),
-                      ),
-                    ),
+                    cont.foodSubPieInfo.value.isEmpty
+                        ? Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 80),
+                            decoration: BoxDecoration(
+                              color: TColor.gray50.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Text(
+                                "There are no food expenses in this account ",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: TColor.white, fontSize: 17)),
+                          )
+                        : Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            // height: media.width * 0.8,
+                            decoration: BoxDecoration(
+                              color: TColor.gray50.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: SizedBox(child: FoodSubPieChart()),
+                          ),
                   ],
                 ),
                 SizedBox(height: 15),
@@ -134,30 +164,40 @@ class _SummaryViewState extends State<SummaryView> {
                             fontWeight: FontWeight.w400),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      // height: media.width * 0.8,
-                      decoration: BoxDecoration(
-                        color: TColor.gray50.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: SizedBox(
-                        child: SubPieChart(
-                          pieChartData: [
-                            PieChartData("House Fixing", 40),
-                            PieChartData(" Furniture", 70),
-                          ],
-                        ),
-                      ),
-                    ),
+                    cont.homeSubPieInfo.value.isEmpty
+                        ? Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 80),
+                            decoration: BoxDecoration(
+                              color: TColor.gray50.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Text(
+                                "There are no Home&Applainces expenses in this account ",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: TColor.white, fontSize: 17)),
+                          )
+                        : Container(
+                            margin: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            // height: media.width * 0.8,
+                            decoration: BoxDecoration(
+                              color: TColor.gray50.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: SizedBox(
+                              child: HomeSubPieChart(),
+                            ),
+                          ),
                   ],
                 ),
               ],
             ),
           ),
         ),
-      ),
+      )),
     );
   }
 }

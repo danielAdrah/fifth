@@ -122,6 +122,7 @@ class _CreatAccountState extends State<CreatAccount> {
                               title: "Confirm",
                               onPressed: () {
                                 // controller.createAccount();
+                                
                                 Get.to(MainNavBar());
                               }),
                     ],
